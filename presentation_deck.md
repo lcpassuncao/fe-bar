@@ -6,7 +6,7 @@
 * **Author**  :  Luis Assunção (Solution Architect Databricks)
 * **Use Case**:  Use case: Optimization of distribution logistics for generic medicines
 
-/<br>/<br>
+</br></br>
 
 ## About EUROFARMA
 
@@ -16,6 +16,9 @@ For over 50 years, the Eurofarma Group has operated in the healthcare sector, pr
 
 The Eurofarma Group has a presence in 24 countries, with 10 manufacturing plants, covering all of Latin America, as well as select countries in Africa and the United States. In 2025, the company generated net sales of R$ 12.5 billion and currently employs more than 13,000 people. It concluded 2023 with two significant acquisitions: Genfar—Sanofi’s generics operation based in Colombia, with affiliates in Ecuador and Peru—and seven assets from Sanofi for the Brazilian, Colombian, Mexican, Argentine, and Uruguayan markets.
 
+Revenue in Brazil: US$ 4 billion (2025).
+
+</br></br>
 
 ## About DATABRICKS
 
@@ -26,6 +29,7 @@ Databricks is a global enterprise software company that provides a cloud-based D
 * Revenue: Crossed a $7 billion revenue run-rate with 80% year-over-year growth.
 * Customer Base: Serves over 20,000 organizations globally, including more than 60% to 70% of the Fortune 500.
 
+</br></br>
 
 ## Core Technology & Offerings
 
@@ -34,6 +38,7 @@ Databricks is a global enterprise software company that provides a cloud-based D
 * AI & Agent Capabilities: Features tools like Agent Bricks (for building AI agents), Genie Code, Genie Agentsand Unity Gateway (an AI Governed).
 * Cloud Integration: Runs natively across major cloud providers including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
 
+</br></br>
 
 ## Sector Challenges: Logistics Network
 
@@ -46,6 +51,8 @@ Although Brazil possesses an extensive road network, many of its roads are poorl
 According to the Pharmaceutical Logistics Report by Abrafarma, infrastructure deficiencies directly impact the "cold chain"—a system essential for the transport of vaccines, insulin, and various other temperature-sensitive medications.
 
 Thermal impact: According to data from the International Air Transport Association (IATA) regarding the sector, approximately 20% of temperature-sensitive medicines sustain some form of damage during transport due to temperature fluctuations or failures in the cold chain.
+
+</br></br>
 
 ## Big Numbers of Challenge:
 
@@ -61,7 +68,10 @@ Thermal impact: According to data from the International Air Transport Associati
 
 A Eurofarma possui mais de 236 apresentações (SKUs) em seu portfólio de medicamentos genéricos.
 
-* Referência:  https://eurofarma.com.br/genericos
+* Reference:  https://eurofarma.com.br/genericos
+
+</br></br>
+
 ## How does your Databricks solution address this challenge? 
 
 
