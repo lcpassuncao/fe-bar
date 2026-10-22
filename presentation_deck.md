@@ -3,8 +3,8 @@
 
 
 
-| Company | EUROFARMA |
-| Solution Architect Databricks | Luis Assunção (luis.assuncao@databricks.com) |
+* **Company** :  EUROFARMA
+* **Author** :   Luis Assunção (Solution Architect Databricks) 
 
 
 
