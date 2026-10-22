@@ -1,13 +1,20 @@
 
 ## Introdution
 
-
-
 * **Company** :  EUROFARMA
-* **Author** :   Luis Assunção (Solution Architect Databricks) 
+* **Sector**  :  Pharmaceutical Industry
+* **Author**  :  Luis Assunção (Solution Architect Databricks)
+* **Use Case**:  Use case: Optimization of distribution logistics for generic medicines
+
+/<br>/<br>
 
 ## About EUROFARMA
 
+Eurofarma is a multinational company with 100% Brazilian capital. Since 1972, it has been recognized by the medical community and society at large for promoting access to healthcare and a better quality of life through affordable, high-quality, and innovative treatments.
+
+For over 50 years, the Eurofarma Group has operated in the healthcare sector, producing and marketing products and services designed to improve people's quality of life. With a diversified portfolio, the company is active across all key segments—including prescription drugs, over-the-counter (OTC) products, generics, hospital products, and oncology—as well as in the export and contract manufacturing of medicines. In Brazil alone, it offers more than 4,000 SKUs, serves 42 medical specialties, and covers over 140 therapeutic classes. Furthermore, it is the most-prescribed pharmaceutical company in Brazil.
+
+The Eurofarma Group has a presence in 24 countries, with 10 manufacturing plants, covering all of Latin America, as well as select countries in Africa and the United States. In 2025, the company generated net sales of R$ 12.5 billion and currently employs more than 13,000 people. It concluded 2023 with two significant acquisitions: Genfar—Sanofi’s generics operation based in Colombia, with affiliates in Ecuador and Peru—and seven assets from Sanofi for the Brazilian, Colombian, Mexican, Argentine, and Uruguayan markets.
 
 
 ## About DATABRICKS
