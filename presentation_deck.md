@@ -1,4 +1,11 @@
 
+## Introdution
+
+
+| -- | -- |
+| Company | EUROFARMA |
+| Solution Architect Databricks | Luis Assunção (luis.assuncao@databricks.com) |
+
 
 
 ## About DATABRICKS
@@ -19,3 +26,13 @@ Databricks is a global enterprise software company that provides a cloud-based D
 * Cloud Integration: Runs natively across major cloud providers including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
 
 ## How does your Databricks solution address this challenge? 
+
+
+
+
+## Expected Business Outcomes
+
+
+
+## Technological improvements
+
