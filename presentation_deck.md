@@ -52,6 +52,8 @@ According to the Pharmaceutical Logistics Report by Abrafarma, infrastructure de
 
 Thermal impact: According to data from the International Air Transport Association (IATA) regarding the sector, approximately 20% of temperature-sensitive medicines sustain some form of damage during transport due to temperature fluctuations or failures in the cold chain.
 
+</br></br>
+
 ## Big Numbers of Challenge:
 
 * Brazil has more than 100,000 pharmacies and drugstores;
