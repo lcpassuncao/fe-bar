@@ -56,17 +56,22 @@ Thermal impact: According to data from the International Air Transport Associati
 
 ## Big Numbers of Challenge:
 
-* O Brasil possui mais de 100 mil farmácias e drogarias em funcionamento;
-* • No Brasil: A empresa conta com mais de 4 mil SKUs ativos, cobrindo dezenas de especialidades médicas e centenas de classes terapêuticas.
-• Produção anual: A companhia fabrica mais de 570 milhões de unidades de medicamentos por ano
- O portfólio da companhia atende a 42 especialidades médicas e cobre mais de 140 classes terapêuticas apenas em território nacional.
+* O Brasil possui mais de 100 mil farmácias e drogarias;
+* 
 
+## EUROFARMA Metrics:
 
-• Vice-líder nacional: A empresa ocupa de forma consolidada a 2ª posição no ranking de genéricos em faturamento no país.
-• Participação e Vendas: A divisão detém cerca de 14,7% de participação de mercado (market share). Seu faturamento anual na categoria atinge a marca de R$ 3 bilhões, ultrapassando a barreira de 200 milhões de unidades vendidas por ano.
-• Presença no Varejo: Os genéricos da marca estão distribuídos em cerca de 90 mil farmácias e drogarias pelo Brasil, cobrindo a grande maioria dos pontos de venda do país.
+The company EUROFARMA:
 
-A Eurofarma possui mais de 236 apresentações (SKUs) em seu portfólio de medicamentos genéricos.
+* Has over 4,000 active SKUs;
+* Includes 236 SKUs in its generic drug portfolio;
+* Manufactures more than 570 million units of medication per year;
+* Serves 42 medical specialties;
+* Covers over 140 therapeutic classes;
+* Its Generic Drugs division holds a 14.7% market share;
+* Annual revenue in the generic drugs category reaches US$ 604 million;
+* Sells 200 million units of generic drugs annually;
+* Its generic products are distributed across approximately 90,000 pharmacies throughout Brazil.
 
 * Reference:  https://eurofarma.com.br/genericos
 
