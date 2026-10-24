@@ -78,6 +78,8 @@ The company EUROFARMA:
 * Sells 200 million units of generic drugs annually;
 * Its generic products are distributed across approximately 90,000 pharmacies throughout Brazil.
 
+</br>
+
 **Reference:**  https://eurofarma.com.br/generic-drugs
 
 
