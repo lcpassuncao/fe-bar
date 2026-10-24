@@ -4,7 +4,7 @@
 * **Company** :  EUROFARMA
 * **Sector**  :  Pharmaceutical Industry
 * **Author**  :  Luis Assunção (Solution Architect Databricks)
-* **Use Case**:  Use case: Optimization of distribution logistics for generic medicines
+* **Use Case**:  Optimization of distribution logistics for generic medicines
 
 </br></br>
 
@@ -52,12 +52,17 @@ According to the Pharmaceutical Logistics Report by Abrafarma, infrastructure de
 
 Thermal impact: According to data from the International Air Transport Association (IATA) regarding the sector, approximately 20% of temperature-sensitive medicines sustain some form of damage during transport due to temperature fluctuations or failures in the cold chain.
 
-</br></br>
-
 ## Big Numbers of Challenge:
 
-* O Brasil possui mais de 100 mil farmácias e drogarias;
-* 
+* Brazil has more than 100,000 pharmacies and drugstores;
+* 20% of temperature-sensitive medications are damaged and lost during global transit due to thermal fluctuations and refrigeration failures.
+* 79% of all operational losses in pharmacies and drugstores are caused by products reaching their expiration date.
+* 1.24% of the retail sector's total revenue is consumed by general losses, with product expiration being the leading cause of waste by a significant margin.
+* 6% of internal inventory losses in the healthcare sector stem from direct physical damage.
+* 20% of in-store losses are specifically attributed to products damaged during daily handling.
+
+</br></br>
+
 
 ## EUROFARMA Metrics:
 
@@ -80,11 +85,17 @@ The company EUROFARMA:
 ## How does your Databricks solution address this challenge? 
 
 
-
+</br></br>
 
 ## Expected Business Outcomes
 
+* Reduzir o percentual de perdas de medicamento por validade vencida em 10%;
+* Melhorar a efetividade na distribuição dos medicamentos, reduzindo em 5% os custos operacionais;
+* Reduzir o stockout de medicamentos em 20%;
+* Aumento do market-share de medicamentos genéricos em 1%;
 
+</br></br>
 
 ## Technological improvements
 
+</br></br>
