@@ -16,7 +16,7 @@ For over 50 years, the Eurofarma Group has operated in the healthcare sector, pr
 
 The Eurofarma Group has a presence in 24 countries, with 10 manufacturing plants, covering all of Latin America, as well as select countries in Africa and the United States. In 2025, the company generated net sales of R$ 12.5 billion and currently employs more than 13,000 people. It concluded 2023 with two significant acquisitions: Genfar—Sanofi’s generics operation based in Colombia, with affiliates in Ecuador and Peru—and seven assets from Sanofi for the Brazilian, Colombian, Mexican, Argentine, and Uruguayan markets.
 
-Revenue in Brazil: US$ 4 billion (2025).
+Revenue in Brazil: **US$ 4 billion (2025)**.
 
 </br></br>
 
@@ -94,11 +94,12 @@ The company EUROFARMA:
 
 ## Expected Business Outcomes
 
-* Reduzir o percentual de perdas de medicamento por validade vencida em 10%;
-* Melhorar a efetividade na distribuição dos medicamentos, reduzindo em 5% os custos operacionais;
-* Reduzir o stockout de medicamentos em 20%;
-* Aumento do market-share de medicamentos genéricos em 1%;
+* Reduce the percentage of medication losses due to expiration by 10%;
+* Improve the effectiveness of medication distribution, reducing operational costs by 5%;
+* Reduce medication stockouts by 20%;
+* Increase the market share of generic medications by 1%;
 
+  
 </br></br>
 
 ## Technological improvements
