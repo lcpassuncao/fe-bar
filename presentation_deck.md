@@ -104,4 +104,11 @@ The company EUROFARMA:
 
 ## Technological improvements
 
+* Unification of data, analytics, and AI on a single platform.
+* Greater agility: accelerates the creation of pipelines, dashboards, predictive models, and AI applications.
+* Centralized governance: provides access control, auditing, lineage, and security policies.
+* Adoption of generative AI: facilitates the development of models, agents, and applications based on corporate data.
+* Real-time processing: supports both batch and streaming workloads within the same architecture.
+* Increased productivity: collaborative environments enable the reuse of code, data, models, and processes.
+
 </br></br>
