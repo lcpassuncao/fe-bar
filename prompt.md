@@ -63,8 +63,38 @@ drugstore.csv
 
 Carga das tabelas no eurofarma.bronze
 
-Crie um pipeline de carga, replicando as 3 tabelas para as camadas silver e gold.
+Crie um pipeline de carga replicando as 3 tabelas para a camadaa silver.
 
-### 3.4 - 
+Crie um pileline para gerar uma tabela (one big table, desnomalized) chamada eurofarma.gold.obt_sales,
+resultado do cruzamento pelas respectivas chaves, das três tabelas abaixo:
+eurofarma.silver.fact_sales
+eurofarma.silver.drugs
+eurofarma.silver.drugstore
 
+
+### 3.4 - Criação do Dashboard AI/BI
+
+Crie um Dashboard utiizando como fonte a tabela: eurofarma.gold.obt_sales.
+
+Com macro indicadores de Vendas (Qde Vendas, Valor Vendas, Ticket Médio).
+Colocar filtros globais:
+Fabricante do Medicamento;
+Tipo do Medicamento;
+Região da Venda (UF);
+Cidade da Venda;
+Filtro de período de data;
+
+Crie uma segunda aba no mesmo dashboard, com um elemento gráfico em forma de MAPA, com pontos geográficos (latitude e longitue);
+
+### 3.5 - Crie um Agente conversacional
+
+Crie um Agente na GENIE a partir da tabela: eurofarma.gold.obt_sales;
+
+
+### 3.6 - Crie um Modelo de Machine Learning
+
+
+Machine Learning	make it intelligent with AI Model to clustering sales and forecasting
+Lakebase	Operational serving of AI Models
+Databricks app	Simple way to expose and interact with data
 
