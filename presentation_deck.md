@@ -89,6 +89,15 @@ The company EUROFARMA:
 
 ## How does your Databricks solution address this challenge? 
 
+| Solution | Objective |
+| -- | -- |
+| Unity Catalog | Unified and native Data Governance |
+| Lakeflow | Data ingestion in a simple way |
+| Genie Agent | Democratize information by making it accessible via natural language |
+| Machine Learning | make it intelligent with AI Model to clustering sales and forecasting |
+| Lakebase | Operational serving of AI Models |
+| Databricks app | Simple way to expose and interact with data |
+| AI/BI Dashboard | Dashboard with Sales KPIs |
 
 </br></br>
 
