@@ -89,6 +89,8 @@ The company EUROFARMA:
 
 ## How does your Databricks solution address this challenge? 
 
+Databricks is a comprehensive Data and AI platform that provides end-to-end solutions—covering everything from data ingestion and governance to machine learning models, GenAI assistants, and data applications—with the goal of simplifying and accelerating operations.
+
 | Solution | Objective |
 | -- | -- |
 | Unity Catalog | Unified and native Data Governance |
