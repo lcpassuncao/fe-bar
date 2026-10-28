@@ -20,7 +20,7 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install "psycopg[binary]" --quiet
+# MAGIC %pip install "mlflow>=3" "psycopg[binary]" --quiet
 
 # COMMAND ----------
 
