@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # 06 - Sales forecasting model (MLflow + Unity Catalog + Lakebase)
 # MAGIC
@@ -265,3 +269,12 @@ with psycopg.connect(host=host, port=5432, dbname=DATABASE, user=user, password=
         "SELECT count(*), min(projected_date), max(projected_date), sum(expected_quantity) FROM public.eurofarma_forecast"
     ).fetchone()
 print(f"eurofarma_forecast: {n} rows, {d0} to {d1}, total expected quantity {total}")
+
+# COMMAND ----------
+
+# DBTITLE 1,Check Lakebase forecast table
+with psycopg.connect(host=host, port=5432, dbname=DATABASE, user=user, password=token, sslmode="require") as conn:
+    display(pd.DataFrame(
+        conn.execute("SELECT count(*), min(projected_date), max(projected_date), sum(expected_quantity)  FROM public.eurofarma_forecast").fetchall(),
+        columns=["count", "min_projected_date", "max_projected_date", "sum_expected_quantity"],
+    ))
