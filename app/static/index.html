@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eurofarma - Sales</title>
+<style>
+  :root { --bg:#f5f6f8; --card:#fff; --ink:#1b2430; --muted:#6b7686; --line:#e3e7ee; --blue:#1b6ac9; --green:#14935b; --orange:#e07b00; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:#0b2a4a; color:#fff; padding:14px 24px; display:flex; align-items:baseline; gap:16px; }
+  header h1 { margin:0; font-size:20px; }
+  header span { color:#a9bfd8; font-size:13px; }
+  main { display:grid; grid-template-columns: minmax(0,2fr) minmax(320px,1fr); gap:16px; padding:16px 24px; }
+  .col { display:flex; flex-direction:column; gap:16px; min-width:0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+  .card h2 { margin:0 0 2px; font-size:15px; }
+  .card .sub { color:var(--muted); font-size:12px; margin-bottom:8px; }
+  .row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  select, input, button { font:inherit; }
+  select { padding:4px 6px; border:1px solid var(--line); border-radius:6px; max-width:260px; }
+  .chart { width:100%; height:260px; position:relative; }
+  .chart svg { width:100%; height:100%; display:block; }
+  .tip { position:absolute; pointer-events:none; background:#0b2a4a; color:#fff; padding:4px 8px; border-radius:4px; font-size:12px; display:none; white-space:nowrap; }
+  .legend { display:flex; gap:14px; color:var(--muted); font-size:12px; margin-top:4px; }
+  .legend i { display:inline-block; width:10px; height:3px; margin-right:5px; vertical-align:middle; }
+  .chat { display:flex; flex-direction:column; height:calc(100vh - 100px); min-height:480px; }
+  #log { flex:1; overflow:auto; display:flex; flex-direction:column; gap:10px; padding:4px 2px 8px; }
+  .msg { max-width:95%; padding:8px 10px; border-radius:8px; white-space:pre-wrap; word-break:break-word; }
+  .user { align-self:flex-end; background:var(--blue); color:#fff; }
+  .bot { align-self:flex-start; background:#eef2f7; }
+  .bot table { border-collapse:collapse; margin-top:8px; font-size:12px; background:#fff; }
+  .bot th, .bot td { border:1px solid var(--line); padding:3px 6px; text-align:left; }
+  .bot details { margin-top:6px; font-size:12px; color:var(--muted); }
+  .bot pre { white-space:pre-wrap; margin:4px 0 0; }
+  form { display:flex; gap:8px; margin-top:6px; }
+  form input { flex:1; padding:8px 10px; border:1px solid var(--line); border-radius:6px; }
+  form button { padding:8px 14px; border:0; border-radius:6px; background:var(--blue); color:#fff; cursor:pointer; }
+  form button:disabled { opacity:.5; cursor:default; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px; }
+  .chips button { border:1px solid var(--line); background:#fff; border-radius:14px; padding:3px 10px; font-size:12px; cursor:pointer; }
+  .err { color:#b3261e; font-size:13px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } .chat { height:560px; } }
+</style>
+</head>
+<body>
+<header><h1>Eurofarma - Sales</h1><span>eurofarma.gold.obt_sales · Lakebase eurofarma_forecast · Genie genie_eurofarma</span></header>
+<main>
+  <div class="col">
+    <section class="card">
+      <h2>Sales trend</h2>
+      <div class="sub">Units sold per day (all SKUs) and 7-day moving average</div>
+      <div class="chart" id="trend"></div>
+      <div class="legend"><span><i style="background:#9db8dc"></i>Daily quantity</span><span><i style="background:var(--blue)"></i>7-day average</span></div>
+    </section>
+    <section class="card">
+      <div class="row">
+        <div><h2>Projected sales</h2><div class="sub" id="fc-sub">Expected units per day for the coming days</div></div>
+        <select id="sku"><option value="">Top SKUs (total)</option></select>
+      </div>
+      <div class="chart" id="forecast"></div>
+      <div class="legend"><span><i style="background:var(--orange)"></i>Expected quantity</span></div>
+    </section>
+  </div>
+  <section class="card chat">
+    <h2>Ask Genie</h2>
+    <div class="sub">Conversational agent on the sales data</div>
+    <div class="chips" id="chips"></div>
+    <div id="log"></div>
+    <form id="form"><input id="q" placeholder="Ask about sales, medications, manufacturers..." autocomplete="off"><button id="send">Send</button></form>
+  </section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const nf = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+
+// ---- minimal SVG line chart ------------------------------------------------
+function lineChart(el, series, { yLabel = "" } = {}) {
+  el.innerHTML = "";
+  const pts = series.flatMap((s) => s.points);
+  if (!pts.length) { el.innerHTML = '<div class="sub">No data</div>'; return; }
+  const W = 800, H = 260, m = { l: 52, r: 12, t: 10, b: 28 };
+  const xs = [...new Set(pts.map((p) => p.x))].sort();
+  const xi = new Map(xs.map((x, i) => [x, i]));
+  const ymax = Math.max(...pts.map((p) => p.y)) * 1.08 || 1;
+  const X = (x) => m.l + (xi.get(x) / Math.max(xs.length - 1, 1)) * (W - m.l - m.r);
+  const Y = (y) => H - m.b - (y / ymax) * (H - m.t - m.b);
+  let g = "";
+  for (let i = 0; i <= 4; i++) {
+    const v = (ymax * i) / 4, y = Y(v);
+    g += `<line x1="${m.l}" x2="${W - m.r}" y1="${y}" y2="${y}" stroke="#e3e7ee"/><text x="${m.l - 6}" y="${y + 4}" text-anchor="end" font-size="11" fill="#6b7686">${nf.format(v)}</text>`;
+  }
+  const ticks = Math.min(6, xs.length);
+  for (let i = 0; i < ticks; i++) {
+    const x = xs[Math.round((i * (xs.length - 1)) / Math.max(ticks - 1, 1))];
+    g += `<text x="${X(x)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="#6b7686">${x}</text>`;
+  }
+  for (const s of series) {
+    const d = s.points.map((p, i) => `${i ? "L" : "M"}${X(p.x).toFixed(1)},${Y(p.y).toFixed(1)}`).join("");
+    g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width || 2}"/>`;
+  }
+  const svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${g}<line id="cur" y1="${m.t}" y2="${H - m.b}" stroke="#9aa5b5" style="display:none"/></svg>`;
+  el.innerHTML = svg + '<div class="tip"></div>';
+  const tip = el.querySelector(".tip"), cur = el.querySelector("#cur"), box = el.querySelector("svg");
+  box.addEventListener("mousemove", (e) => {
+    const r = box.getBoundingClientRect();
+    const px = ((e.clientX - r.left) / r.width) * W;
+    const i = Math.min(xs.length - 1, Math.max(0, Math.round(((px - m.l) / (W - m.l - m.r)) * (xs.length - 1))));
+    const x = xs[i];
+    cur.setAttribute("x1", X(x)); cur.setAttribute("x2", X(x)); cur.style.display = "";
+    tip.innerHTML = `${x}<br>` + series.map((s) => { const p = s.points.find((q) => q.x === x); return p ? `${s.name}: ${nf.format(p.y)}` : ""; }).filter(Boolean).join("<br>");
+    tip.style.display = "block";
+    tip.style.left = Math.min(e.clientX - r.left + 12, r.width - 150) + "px";
+    tip.style.top = "8px";
+  });
+  box.addEventListener("mouseleave", () => { tip.style.display = "none"; cur.style.display = "none"; });
+}
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 200)}`);
+  return r.json();
+}
+
+// ---- sales trend -----------------------------------------------------------
+async function loadTrend() {
+  try {
+    const d = await api("/api/sales-trend");
+    lineChart($("#trend"), [
+      { name: "Daily", color: "#9db8dc", width: 1.2, points: d.days.map((p) => ({ x: p.day, y: p.quantity })) },
+      { name: "7-day avg", color: "#1b6ac9", width: 2.4, points: d.days.map((p) => ({ x: p.day, y: p.quantity_ma7 })) },
+    ]);
+  } catch (e) { $("#trend").innerHTML = `<div class="err">Could not load sales trend: ${e.message}</div>`; }
+}
+
+// ---- forecast --------------------------------------------------------------
+let skusLoaded = false;
+async function loadForecast(sku) {
+  try {
+    const d = await api("/api/forecast" + (sku ? `?sku=${sku}` : ""));
+    if (!skusLoaded) {
+      for (const s of d.skus.slice(0, 50)) $("#sku").insertAdjacentHTML("beforeend", `<option value="${s.sku_code}">${s.medication_name} (${s.sku_code})</option>`);
+      skusLoaded = true;
+    }
+    $("#fc-sub").textContent = sku ? "Expected units per day for the selected SKU" : `Expected units per day, sum of the ${d.skus.length} forecasted SKUs`;
+    lineChart($("#forecast"), [{ name: "Expected", color: "#e07b00", points: d.days.map((p) => ({ x: p.day, y: p.quantity })) }]);
+  } catch (e) { $("#forecast").innerHTML = `<div class="err">Could not load forecast: ${e.message}</div>`; }
+}
+$("#sku").addEventListener("change", (e) => loadForecast(e.target.value));
+
+// ---- chat ------------------------------------------------------------------
+let conversationId = null;
+const log = $("#log");
+function add(cls, html) { const d = document.createElement("div"); d.className = "msg " + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+const esc = (s) => String(s ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+async function ask(text) {
+  if (!text.trim()) return;
+  add("user", esc(text));
+  $("#send").disabled = true;
+  const wait = add("bot", "Thinking...");
+  try {
+    const r = await api("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: text, conversation_id: conversationId }) });
+    conversationId = r.conversation_id;
+    let html = esc(r.text || r.description || (r.rows.length ? "" : "No answer."));
+    if (r.rows.length) {
+      html += "<table><tr>" + r.columns.map((c) => `<th>${esc(c)}</th>`).join("") + "</tr>" + r.rows.map((row) => "<tr>" + row.map((v) => `<td>${esc(v)}</td>`).join("") + "</tr>").join("") + "</table>";
+    }
+    if (r.sql) html += `<details><summary>SQL</summary><pre>${esc(r.sql)}</pre></details>`;
+    wait.innerHTML = html;
+  } catch (e) { wait.innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  $("#send").disabled = false;
+  log.scrollTop = log.scrollHeight;
+}
+$("#form").addEventListener("submit", (e) => { e.preventDefault(); const t = $("#q").value; $("#q").value = ""; ask(t); });
+for (const q of ["What are the top 5 best-selling medications from the manufacturer Eurofarma?", "What is the total sales value by state (UF)?", "What is the average ticket by sales channel?"]) {
+  const b = document.createElement("button"); b.type = "button"; b.textContent = q; b.onclick = () => ask(q); $("#chips").appendChild(b);
+}
+
+loadTrend();
+loadForecast("");
+</script>
+</body>
+</html>

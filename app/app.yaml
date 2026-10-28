@@ -1,0 +1,21 @@
+command:
+  - python
+  - -m
+  - uvicorn
+  - app:app
+  - --host
+  - 0.0.0.0
+  - --port
+  - "8000"
+
+env:
+  # app resources (declared on the app: sql-warehouse, genie-space)
+  - name: DATABRICKS_WAREHOUSE_ID
+    valueFrom: sql-warehouse
+  - name: GENIE_SPACE_ID
+    valueFrom: genie-space
+  # Lakebase (table public.eurofarma_forecast created by notebook 05)
+  - name: LAKEBASE_ENDPOINT
+    value: projects/eurofarma/branches/production/endpoints/primary
+  - name: PGDATABASE
+    value: eurofarma
