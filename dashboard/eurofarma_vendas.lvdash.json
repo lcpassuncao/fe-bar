@@ -1,0 +1,820 @@
+{
+  "datasets": [
+    {
+      "name": "ds_sales",
+      "displayName": "Vendas (obt_sales)",
+      "queryLines": [
+        "SELECT venda_id, data_venda, quantidade, valor_total, COALESCE(empresa_detentora_registro, 'Não informado') AS fabricante, COALESCE(categoria_regulatoria, 'Não informado') AS tipo_medicamento, COALESCE(uf, 'Não informado') AS uf, COALESCE(cidade, 'Não informado') AS cidade, canal_venda FROM eurofarma.gold.obt_sales"
+      ]
+    },
+    {
+      "name": "ds_map",
+      "displayName": "Vendas geolocalizadas",
+      "queryLines": [
+        "SELECT venda_id, data_venda, quantidade, valor_total, COALESCE(empresa_detentora_registro, 'Não informado') AS fabricante, COALESCE(categoria_regulatoria, 'Não informado') AS tipo_medicamento, COALESCE(uf, 'Não informado') AS uf, COALESCE(cidade, 'Não informado') AS cidade, nome_fantasia, latitude, longitude FROM eurofarma.gold.obt_sales WHERE latitude IS NOT NULL AND longitude IS NOT NULL"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "vendas",
+      "displayName": "Vendas",
+      "layout": [
+        {
+          "widget": {
+            "name": "title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## Eurofarma - Análise de Vendas"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "subtitle",
+            "multilineTextboxSpec": {
+              "lines": [
+                "Fonte: eurofarma.gold.obt_sales. Use os filtros globais para fabricante, tipo, UF, cidade e período."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi-quantidade",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "sum(quantidade)",
+                      "expression": "SUM(`quantidade`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(quantidade)",
+                  "displayName": "Quantidade Vendida"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Quantidade Vendida"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi-valor",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "sum(valor_total)",
+                      "expression": "SUM(`valor_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(valor_total)",
+                  "displayName": "Valor de Vendas (R$)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Valor de Vendas (R$)"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi-ticket",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "avg(valor_total)",
+                      "expression": "AVG(`valor_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(valor_total)",
+                  "displayName": "Ticket Médio (R$)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Ticket Médio (R$)"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "chart-mensal",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "monthly(data_venda)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `data_venda`)"
+                    },
+                    {
+                      "name": "sum(valor_total)",
+                      "expression": "SUM(`valor_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(data_venda)",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "Mês"
+                },
+                "y": {
+                  "fieldName": "sum(valor_total)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Valor (R$)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Valor de Vendas por Mês"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart-tipo",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "tipo_medicamento",
+                      "expression": "`tipo_medicamento`"
+                    },
+                    {
+                      "name": "sum(valor_total)",
+                      "expression": "SUM(`valor_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "tipo_medicamento",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "displayName": "Tipo"
+                },
+                "y": {
+                  "fieldName": "sum(valor_total)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Valor (R$)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Valor de Vendas por Tipo de Medicamento"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 5,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart-uf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "uf",
+                      "expression": "`uf`"
+                    },
+                    {
+                      "name": "sum(valor_total)",
+                      "expression": "SUM(`valor_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "uf",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "displayName": "UF"
+                },
+                "y": {
+                  "fieldName": "sum(valor_total)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Valor (R$)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Valor de Vendas por UF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart-canal",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "canal_venda",
+                      "expression": "`canal_venda`"
+                    },
+                    {
+                      "name": "sum(quantidade)",
+                      "expression": "SUM(`quantidade`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "canal_venda",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "displayName": "Canal"
+                },
+                "y": {
+                  "fieldName": "sum(quantidade)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Quantidade"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Quantidade por Canal de Venda"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 10,
+            "width": 3,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "mapa",
+      "displayName": "Mapa",
+      "layout": [
+        {
+          "widget": {
+            "name": "map-title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## Mapa de Vendas"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "map-subtitle",
+            "multilineTextboxSpec": {
+              "lines": [
+                "Pontos de venda geolocalizados (latitude/longitude do cadastro de drogarias). Cor = tipo de medicamento."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "map-vendas",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "latitude",
+                      "expression": "`latitude`"
+                    },
+                    {
+                      "name": "longitude",
+                      "expression": "`longitude`"
+                    },
+                    {
+                      "name": "tipo_medicamento",
+                      "expression": "`tipo_medicamento`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "latitude"
+                  },
+                  "longitude": {
+                    "fieldName": "longitude"
+                  }
+                },
+                "color": {
+                  "fieldName": "tipo_medicamento",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Tipo de Medicamento"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Mapa Geográfico de Vendas"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 10
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "filtros",
+      "displayName": "Filtros",
+      "layout": [
+        {
+          "widget": {
+            "name": "f-fabricante",
+            "queries": [
+              {
+                "name": "q_fabricante_sales",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "fabricante",
+                      "expression": "`fabricante`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "q_fabricante_map",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "fabricante",
+                      "expression": "`fabricante`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "fabricante",
+                    "displayName": "Fabricante do Medicamento",
+                    "queryName": "q_fabricante_sales"
+                  },
+                  {
+                    "fieldName": "fabricante",
+                    "displayName": "Fabricante do Medicamento",
+                    "queryName": "q_fabricante_map"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Fabricante do Medicamento"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "f-tipo",
+            "queries": [
+              {
+                "name": "q_tipo_medicamento_sales",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "tipo_medicamento",
+                      "expression": "`tipo_medicamento`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "q_tipo_medicamento_map",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "tipo_medicamento",
+                      "expression": "`tipo_medicamento`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "tipo_medicamento",
+                    "displayName": "Tipo de Medicamento",
+                    "queryName": "q_tipo_medicamento_sales"
+                  },
+                  {
+                    "fieldName": "tipo_medicamento",
+                    "displayName": "Tipo de Medicamento",
+                    "queryName": "q_tipo_medicamento_map"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Tipo de Medicamento"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "f-uf",
+            "queries": [
+              {
+                "name": "q_uf_sales",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "uf",
+                      "expression": "`uf`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "q_uf_map",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "uf",
+                      "expression": "`uf`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "uf",
+                    "displayName": "Região de Venda (UF)",
+                    "queryName": "q_uf_sales"
+                  },
+                  {
+                    "fieldName": "uf",
+                    "displayName": "Região de Venda (UF)",
+                    "queryName": "q_uf_map"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Região de Venda (UF)"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "f-cidade",
+            "queries": [
+              {
+                "name": "q_cidade_sales",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "cidade",
+                      "expression": "`cidade`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "q_cidade_map",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "cidade",
+                      "expression": "`cidade`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "cidade",
+                    "displayName": "Cidade de Venda",
+                    "queryName": "q_cidade_sales"
+                  },
+                  {
+                    "fieldName": "cidade",
+                    "displayName": "Cidade de Venda",
+                    "queryName": "q_cidade_map"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Cidade de Venda"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "f-data",
+            "queries": [
+              {
+                "name": "q_data_venda_sales",
+                "query": {
+                  "datasetName": "ds_sales",
+                  "fields": [
+                    {
+                      "name": "data_venda",
+                      "expression": "`data_venda`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "q_data_venda_map",
+                "query": {
+                  "datasetName": "ds_map",
+                  "fields": [
+                    {
+                      "name": "data_venda",
+                      "expression": "`data_venda`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "data_venda",
+                    "displayName": "Período",
+                    "queryName": "q_data_venda_sales"
+                  },
+                  {
+                    "fieldName": "data_venda",
+                    "displayName": "Período",
+                    "queryName": "q_data_venda_map"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Período"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
