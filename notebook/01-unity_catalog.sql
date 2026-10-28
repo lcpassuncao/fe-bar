@@ -1,5 +1,17 @@
 -- Databricks notebook source
 -- MAGIC %md
+-- MAGIC ## Databricks FE-BAR 
+-- MAGIC
+-- MAGIC * **Date**:  October, 28 2026
+-- MAGIC
+-- MAGIC * **Company** :  EUROFARMA
+-- MAGIC * **Sector**  :  Pharmaceutical Industry
+-- MAGIC * **Author**  :  Luis Assunção (Solution Architect Databricks)
+-- MAGIC * **Use Case**:  Optimization of distribution logistics for generic medicines
+
+-- COMMAND ----------
+
+-- MAGIC %md
 -- MAGIC # 01 - Unity Catalog setup (governance)
 -- MAGIC
 -- MAGIC Creates the `eurofarma` catalog, the `bronze`, `silver` and `gold` schemas,
