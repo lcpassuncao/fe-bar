@@ -90,6 +90,8 @@ Date Range Filter.
 
 Create a second tab in the same dashboard containing a MAP visualization, displaying geographic points (latitude and longitude). 
 
+Register a final object Dashboard created at github repo.
+
 
 ### 3.5 - Create a Conversational Agent
 
@@ -116,6 +118,7 @@ Create a table named `eurofarma_forecast` to store sales projection data for the
 
 Include the following columns: SKU code, medication name, projected date, and expected sales quantity.
 
+
 ### 3.7 - Create a Machine Learning Model
 
 Create a notebook named "06-machine_learning"
@@ -128,7 +131,11 @@ The model must be registered in the Unity Catalog, under the `eurofarma` catalog
 
 The model must follow best practices by utilizing MLflow.
 
-The model's output should populate the final results into the `eurofarma_forecast` table in Lakebase. ### 3.8 - Create an application in Databricks Apps
+The model's output should populate the final results into the `eurofarma_forecast` table in Lakebase. 
+
+</br>
+
+### 3.8 - Create an application in Databricks Apps
 
 Create a notebook named "07-apps"
 and save it to the repository at https://github.com/luis-assuncao_data/eurofarma/notebook,
@@ -141,3 +148,4 @@ The Databricks App should feature:
 
 The final application should be saved to GitHub
 at the following link: https://github.com/luis-assuncao_data/eurofarma/app
+
