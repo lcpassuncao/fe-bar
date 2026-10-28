@@ -1,4 +1,21 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
+# MAGIC %md
+# MAGIC ## Databricks FE-BAR 
+# MAGIC
+# MAGIC * **Date**:  October, 28 2026
+# MAGIC
+# MAGIC * **Company** :  EUROFARMA
+# MAGIC * **Sector**  :  Pharmaceutical Industry
+# MAGIC * **Author**  :  Luis Assunção (Solution Architect Databricks)
+# MAGIC * **Use Case**:  Optimization of distribution logistics for generic medicines
+# MAGIC
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC # 03 - AI/BI Dashboard
 # MAGIC
