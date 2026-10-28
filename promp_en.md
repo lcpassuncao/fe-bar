@@ -88,7 +88,10 @@ Sales Region (State/UF);
 Sales City;
 Date Range Filter.
 
-Create a second tab in the same dashboard containing a MAP visualization, displaying geographic points (latitude and longitude). ### 3.5 - Create a Conversational Agent
+Create a second tab in the same dashboard containing a MAP visualization, displaying geographic points (latitude and longitude). 
+
+
+### 3.5 - Create a Conversational Agent
 
 Create a notebook named "04-genie"
 and save it at the following link: https://github.com/luis-assuncao_data/eurofarma/notebook,
