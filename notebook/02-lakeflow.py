@@ -1,4 +1,21 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
+# MAGIC %md
+# MAGIC
+# MAGIC ## Databricks FE-BAR 
+# MAGIC
+# MAGIC * **Date**:  October, 28 2026
+# MAGIC
+# MAGIC * **Company** :  EUROFARMA
+# MAGIC * **Sector**  :  Pharmaceutical Industry
+# MAGIC * **Author**  :  Luis Assunção (Solution Architect Databricks)
+# MAGIC * **Use Case**:  Optimization of distribution logistics for generic medicines
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC # 02 - Lakeflow Spark Declarative Pipelines
 # MAGIC
