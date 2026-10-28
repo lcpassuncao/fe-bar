@@ -31,7 +31,7 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install "psycopg[binary]" --quiet
+# MAGIC %pip install "databricks-sdk>=0.81.0" "psycopg[binary]" --quiet
 
 # COMMAND ----------
 
