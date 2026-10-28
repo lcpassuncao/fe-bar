@@ -27,7 +27,7 @@
 # MAGIC | `sku_code` | integer | SKU code (`id_produto` in `eurofarma.gold.obt_sales`) |
 # MAGIC | `medication_name` | text | Medication name |
 # MAGIC | `projected_date` | date | Date the projection refers to |
-# MAGIC | `expected_quantity` | integer | Expected sales quantity |
+# MAGIC | `expected_quantity` | numeric(12,2) | Expected sales quantity (fractional: expected units per SKU per day are small) |
 # MAGIC
 # MAGIC The notebook is idempotent: re-running it does not recreate or change anything that exists.
 
@@ -122,7 +122,7 @@ with connect(DATABASE) as conn:
             sku_code          integer NOT NULL,
             medication_name   text    NOT NULL,
             projected_date    date    NOT NULL,
-            expected_quantity integer NOT NULL CHECK (expected_quantity >= 0),
+            expected_quantity numeric(12,2) NOT NULL CHECK (expected_quantity >= 0),
             PRIMARY KEY (sku_code, projected_date)
         )
         """
