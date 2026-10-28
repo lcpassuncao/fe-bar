@@ -142,3 +142,14 @@ if LAYER == "gold":
         drugs = spark.read.table("eurofarma.silver.drugs").drop(*technical)
         stores = spark.read.table("eurofarma.silver.drugstore").drop(*technical)
         return sales.join(drugs, "id_produto", "left").join(stores, "cnpj14", "left")
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select count(*) from eurofarma.gold.obt_sales
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select *
+# MAGIC from eurofarma.gold.obt_sales
