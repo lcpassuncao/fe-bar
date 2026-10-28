@@ -9,6 +9,8 @@ Please provide the conversation ID for this chat.
 Create a repository named "eurofarma" at the following location:
 https://github.com/luis-assuncao_data
 
+Visibility is PUBLIC.
+
 ### 2.2 - Copying RAW Files
 
 Copy the synthetic data files from:
@@ -34,7 +36,7 @@ https://e2-demo-field-eng.cloud.databricks.com
 ### 3.1 - Create a Notebook for Governance
 
 Create a notebook named "01-unity_catalog"
-and save it to: https://github.com/luis-assuncao_data/eurofarma/notebook
+and save it to: https://github.com/lcpassuncao/fe-bar/notebook
 
 Within the notebook, using SQL, create a catalog named "eurofarma".
 
@@ -44,6 +46,8 @@ Also, create a volume named "rawdata".
 
 Save the notebook to the "notebook" folder in the GitHub repository.
 
+Create a "GIT Folder" in Databricks, named as "eurofarma_febar", linked with REPO: https://github.com/lcpassuncao/fe-bar
+
 ### 3.2 - Copying RAW Data Files
 
 Upload the 3 CSV files to the "eurofarma.rawdata" volume. Files:
@@ -51,12 +55,12 @@ fact_sales.csv
 drugs.csv
 drugstore.csv
 
-Available at: https://github.com/luis-assuncao_data/eurofarma/rawdata
+Available at: https://github.com/lcpassuncao/fe-bar/rawdata
 
 ### 3.3 - Data Loading using Lakeflow
 
 Create a notebook named "02-lakeflow"
-and save it at: https://github.com/luis-assuncao_data/eurofarma/notebook
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook
 
 Create 3 pipelines using Lakeflow to load the following files:
 fact_sales.csv
@@ -76,7 +80,7 @@ resulting from joining the following three tables using their respective keys:
 ### 3.4 - Creating an AI/BI Dashboard
 
 Create a notebook named "03-aibi_dashboard"
-and save it at: https://github.com/luis-assuncao_data/eurofarma/notebook
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook
 
 Create a dashboard using the `eurofarma.gold.obt_sales` table as a data source.
 
@@ -96,7 +100,7 @@ Register a final object Dashboard created at github repo.
 ### 3.5 - Create a Conversational Agent
 
 Create a notebook named "04-genie"
-and save it at the following link: https://github.com/luis-assuncao_data/eurofarma/notebook,
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook,
 including the following steps:
 
 Create an agent in GENIE based on the table: `eurofarma.gold.obt_sales`.
@@ -111,7 +115,7 @@ What are the top 5 best-selling medications from the manufacturer Eurofarma?
 ### 3.6 - Create a Database in Lakebase
 
 Create a notebook named "05-lakebase"
-and save it at the following link: https://github.com/luis-assuncao_data/eurofarma/notebook,
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook,
 including the following steps:
 
 Create a table named `eurofarma_forecast` to store sales projection data for the coming days.
@@ -122,7 +126,7 @@ Include the following columns: SKU code, medication name, projected date, and ex
 ### 3.7 - Create a Machine Learning Model
 
 Create a notebook named "06-machine_learning"
-and save it at the following link: https://github.com/luis-assuncao_data/eurofarma/notebook,
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook,
 including the following steps:
 
 Create a machine learning model for sales forecasting, using the `eurofarma.gold.obt_sales` table.
@@ -138,7 +142,7 @@ The model's output should populate the final results into the `eurofarma_forecas
 ### 3.8 - Create an application in Databricks Apps
 
 Create a notebook named "07-apps"
-and save it to the repository at https://github.com/luis-assuncao_data/eurofarma/notebook,
+and save it at: https://github.com/lcpassuncao/fe-bar/notebook,
 including the following components:
 
 The Databricks App should feature:
@@ -147,5 +151,7 @@ The Databricks App should feature:
 * A chat interface connected to the previously created Genie.
 
 The final application should be saved to GitHub
-at the following link: https://github.com/luis-assuncao_data/eurofarma/app
+and save it at: https://github.com/lcpassuncao/fe-bar/app
+
+
 
