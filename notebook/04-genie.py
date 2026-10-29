@@ -377,3 +377,73 @@ else:
 # COMMAND ----------
 
 displayHTML(f'<a href="/genie/rooms/{space_id}">Open genie_eurofarma</a>')
+
+# COMMAND ----------
+
+# DBTITLE 1,Download Genie space execution log
+# Download the execution log (conversations + messages + generated SQL) of genie_eurofarma
+import json
+import pandas as pd
+from datetime import datetime, timezone
+from databricks.sdk import WorkspaceClient
+
+w = WorkspaceClient()
+
+LOG_SPACE_ID = "01f1d318a7291675a3a21b99e59bab22"  # from the Genie room URL
+
+def _paged(path, key, query=None):
+    query = dict(query or {})
+    while True:
+        resp = w.api_client.do("GET", path, query=query)
+        yield from resp.get(key, [])
+        token = resp.get("next_page_token")
+        if not token:
+            break
+        query["page_token"] = token
+
+def _ts(ms):
+    return datetime.fromtimestamp(int(ms) / 1000, tz=timezone.utc) if ms else None
+
+base = f"/api/2.0/genie/spaces/{LOG_SPACE_ID}/conversations"
+conversations = list(_paged(base, "conversations", {"page_size": 100, "include_all": "true"}))
+print(f"{len(conversations)} conversations found")
+
+rows = []
+for c in conversations:
+    cid = c.get("conversation_id") or c.get("id")
+    try:
+        messages = list(_paged(f"{base}/{cid}/messages", "messages", {"page_size": 100}))
+    except Exception as e:
+        print(f"Could not read messages of conversation {cid}: {e}")
+        messages = []
+    for m in messages:
+        attachments = m.get("attachments") or [{}]
+        for a in attachments:
+            q = a.get("query") or {}
+            rows.append({
+                "conversation_id": cid,
+                "conversation_title": c.get("title"),
+                "message_id": m.get("message_id") or m.get("id"),
+                "user_id": str(m.get("user_id") or c.get("user_id") or ""),
+                "created_at": _ts(m.get("created_timestamp")),
+                "status": m.get("status"),
+                "question": m.get("content"),
+                "attachment_id": a.get("attachment_id"),
+                "generated_sql": q.get("query"),
+                "sql_description": q.get("description"),
+                "statement_id": q.get("statement_id") or (q.get("query_result_metadata") or {}).get("statement_id"),
+                "row_count": (q.get("query_result_metadata") or {}).get("row_count"),
+                "text_answer": (a.get("text") or {}).get("content"),
+                "error": json.dumps(m.get("error"), ensure_ascii=False) if m.get("error") else None,
+            })
+
+log_pdf = pd.DataFrame(rows)
+print(f"{len(log_pdf)} log rows")
+
+# Use the download button of the result table to export as CSV/Excel
+if not log_pdf.empty:
+    display(log_pdf.sort_values("created_at"))
+
+# COMMAND ----------
+
+
