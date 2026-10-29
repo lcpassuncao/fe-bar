@@ -103,7 +103,7 @@ Databricks is a comprehensive Data and AI platform that provides end-to-end solu
 
 ## Expected Business Outcomes
 
-* Reduce medication stockouts by 20%;
+* Reduce medication stockout by 20%;
 * Increase the market share of generic medications by 1%;
 
   
