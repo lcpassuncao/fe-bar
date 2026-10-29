@@ -55,9 +55,8 @@ Although Brazil possesses an extensive road network, many of its roads are poorl
 ## Big Numbers of Challenge:
 
 * Brazil has more than 100,000 pharmacies and drugstores;
-* 20% of temperature-sensitive medications are damaged and lost during global transit due to thermal fluctuations and refrigeration failures.
-* 79% of all operational losses in pharmacies and drugstores are caused by products reaching their expiration date.
-* 1.24% of the retail sector's total revenue is consumed by general losses, with product expiration being the leading cause of waste by a significant margin.
+* Out-of-Stock Rate: Industry data (such as surveys by Abrappe) indicate that the average out-of-stock rate in pharmaceutical retail is around 11.17%, split between commercial out-of-stocks (7.27%) and operational out-of-stocks (3.90%).
+* Immediate Impact: When a customer seeks a medication for chronic use or an immediate need and fails to find it at the point of sale (POS), the pharmacy not only loses the revenue from that specific sale but also risks losing the patient’s loyalty, as they are likely to turn to a competitor.
 * 6% of internal inventory losses in the healthcare sector stem from direct physical damage.
 * 20% of in-store losses are specifically attributed to products damaged during daily handling.
 
