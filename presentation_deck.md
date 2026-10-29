@@ -97,7 +97,7 @@ Databricks is a comprehensive Data and AI platform that provides end-to-end solu
 | Machine Learning | make it intelligent with AI Model to clustering sales and forecasting |
 | Lakebase | Operational serving of AI Models |
 | Databricks app | Simple way to expose and interact with data |
-| AI/BI Dashboard | Dashboard with Sales KPIs |
+| AI/BI Dashboard | Commercial Analytics Dashboard with Sales KPIs |
 
 </br></br>
 
