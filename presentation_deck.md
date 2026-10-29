@@ -4,7 +4,7 @@
 * **Company** :  EUROFARMA
 * **Sector**  :  Pharmaceutical Industry
 * **Author**  :  Luis Assunção (Solution Architect Databricks)
-* **Use Case**:  Optimization of distribution logistics for generic medicines
+* **Use Case**:  Sales and demand-forecasting for generic medicines
 
 </br></br>
 
@@ -48,9 +48,7 @@ Furthermore, regions far from major urban centers often lack specialized storage
 
 Although Brazil possesses an extensive road network, many of its roads are poorly maintained. For pharmaceuticals—which frequently require strict temperature and humidity control—traveling long distances over substandard roads increases the risk of product loss, drives up costs related to insurance and fleet maintenance, and, most importantly, poses a threat to the quality of the goods being transported.
 
-According to the Pharmaceutical Logistics Report by Abrafarma, infrastructure deficiencies directly impact the "cold chain"—a system essential for the transport of vaccines, insulin, and various other temperature-sensitive medications.
 
-Thermal impact: According to data from the International Air Transport Association (IATA) regarding the sector, approximately 20% of temperature-sensitive medicines sustain some form of damage during transport due to temperature fluctuations or failures in the cold chain.
 
 </br></br>
 
@@ -105,8 +103,6 @@ Databricks is a comprehensive Data and AI platform that provides end-to-end solu
 
 ## Expected Business Outcomes
 
-* Reduce the percentage of medication losses due to expiration by 10%;
-* Improve the effectiveness of medication distribution, reducing operational costs by 5%;
 * Reduce medication stockouts by 20%;
 * Increase the market share of generic medications by 1%;
 
