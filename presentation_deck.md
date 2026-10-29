@@ -40,15 +40,17 @@ Databricks is a global enterprise software company that provides a cloud-based D
 
 </br></br>
 
-## Sector Challenges: Logistics Network
+## Sector Challenges: Sales and demand-forecasting 
 
-Brazil is the fifth-largest country in the world by land area. This adds a layer of complexity to logistics route planning, as it requires balancing speed, cost, and reliability while ensuring that pharmaceutical products are maintained under optimal transport conditions.
+Brazil is the fifth-largest country in the world by land area. This adds a layer of complexity to logistics route planning, as it requires balancing speed, cost, and reliability.
 
-Furthermore, regions far from major urban centers often lack specialized storage and transport services equipped with the necessary infrastructure. This hinders "last-mile" delivery—a critical stage for transporting medications directly to pharmacies, hospitals, or patients' homes.
+Furthermore, regions far from major urban centers often lack specialized storage and transport services equipped with the necessary infrastructure. 
 
-Although Brazil possesses an extensive road network, many of its roads are poorly maintained. For pharmaceuticals—which frequently require strict temperature and humidity control—traveling long distances over substandard roads increases the risk of product loss, drives up costs related to insurance and fleet maintenance, and, most importantly, poses a threat to the quality of the goods being transported.
+Demand forecasting errors: A failure to cross-reference actual consumption, sales history, and clinical protocols leads the procurement department to miscalculate the quantities of items to be acquired.
 
+ABC and XYZ product classification: Apply the ABC analysis (based on an item’s financial value) in conjunction with the XYZ analysis (demand predictability). High-value, frequently used medications (category A-X) require daily monitoring and stricter safety margins.
 
+Supplier diversification: Do not centralize procurement with a single manufacturer or distributor. Maintain approved alternative partners to prevent complete operational stoppages in the event of unforeseen issues within the supply chain.
 
 </br></br>
 
@@ -57,8 +59,7 @@ Although Brazil possesses an extensive road network, many of its roads are poorl
 * Brazil has more than 100,000 pharmacies and drugstores;
 * Out-of-Stock Rate: Industry data (such as surveys by Abrappe) indicate that the average out-of-stock rate in pharmaceutical retail is around 11.17%, split between commercial out-of-stocks (7.27%) and operational out-of-stocks (3.90%).
 * Immediate Impact: When a customer seeks a medication for chronic use or an immediate need and fails to find it at the point of sale (POS), the pharmacy not only loses the revenue from that specific sale but also risks losing the patient’s loyalty, as they are likely to turn to a competitor.
-* 6% of internal inventory losses in the healthcare sector stem from direct physical damage.
-* 20% of in-store losses are specifically attributed to products damaged during daily handling.
+
 
 </br></br>
 

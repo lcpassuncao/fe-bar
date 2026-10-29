@@ -12,7 +12,7 @@
 # MAGIC * **Company** :  EUROFARMA
 # MAGIC * **Sector**  :  Pharmaceutical Industry
 # MAGIC * **Author**  :  Luis Assunção (Solution Architect Databricks)
-# MAGIC * **Use Case**:  Optimization of distribution logistics for generic medicines
+# MAGIC * **Use Case**:  Sales and demand-forecasting for generic medicines
 
 # COMMAND ----------
 
