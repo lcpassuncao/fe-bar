@@ -1,0 +1,209 @@
+conversation_id,conversation_title,message_id,user_id,created_at,status,question,attachment_id,generated_sql,sql_description,statement_id,row_count,text_answer,error
+01f1d318ac5d16169339e868fe5b41e7,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318ac6c1286ba30b662dc8da70a,1646507280240387,2026-10-28T21:43:55.062Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318b4e01b048c6c00e3799b1582,null,null,null,null,null,null
+01f1d318ac5d16169339e868fe5b41e7,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318ac6c1286ba30b662dc8da70a,1646507280240387,2026-10-28T21:43:55.062Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,null,null,null,null,null,"Using **all available data** for sales from manufacturer **Eurofarma** (`empresa_detentora_registro` matching `%EUROFARMA%`) and ranking by **sales quantity**, the top 5 best-selling medications are:
+- **ÉSIO** — **139** units
+- **hemitartarato de zolpidem** — **124** units
+- **TORANTE** — **90** units
+- **CETOPROFENO** — **85** units
+- **VEAC** — **84** units
+Across these 5 results, **ÉSIO** leads and sales drop from **139** to **84** units among the top-ranked medications.",null
+01f1d318ac5d16169339e868fe5b41e7,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318ac6c1286ba30b662dc8da70a,1646507280240387,2026-10-28T21:43:55.062Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318b2d910fca7e4e3f2712ac758,"WITH medication_sales AS (
+  SELECT
+    `nome_medicamento`,
+    SUM(`quantidade`) AS `total_quantidade`
+  FROM `eurofarma`.`gold`.`obt_sales`
+  WHERE upper(`empresa_detentora_registro`) LIKE '%EUROFARMA%'
+    AND `nome_medicamento` IS NOT NULL
+  GROUP BY `nome_medicamento`
+), ranked_sales AS (
+  SELECT
+    `nome_medicamento`,
+    `total_quantidade`,
+    RANK() OVER (ORDER BY `total_quantidade` DESC) AS `rnk`
+  FROM medication_sales
+)
+SELECT
+  `nome_medicamento`,
+  `total_quantidade`
+FROM ranked_sales
+WHERE `rnk` <= 5
+ORDER BY `total_quantidade` DESC, `nome_medicamento` ASC",You want to see the top 5 medications with the highest total units sold from the manufacturer Eurofarma.,01f1d318-b2e4-1aea-b7d2-308398d8e890,5,null,null
+01f1d318ac5d16169339e868fe5b41e7,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318ac6c1286ba30b662dc8da70a,1646507280240387,2026-10-28T21:43:55.062Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d318b519111ea8634c6f9703bb44,null,null,null,null,null,null
+01f1d31a514d1bc4aa8aa22aa1199b7f,What are the top 5 best-selling medications from the manufact...,01f1d31a51d11d5aadc55bd4b3333c05,1646507280240387,2026-10-28T21:55:42.105Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,toolu_bdrk_01qrtdlbpucedoqf8hbz4cx5,"SELECT nome_medicamento, SUM(quantidade) AS total_quantidade FROM eurofarma.gold.obt_sales WHERE upper(empresa_detentora_registro) LIKE '%EUROFARMA%' GROUP BY nome_medicamento ORDER BY total_quantidade DESC LIMIT 5",null,01f1d31a-5477-1fd4-8f1b-0bf7f8ae366a,null,null,null
+01f1d32345ef11719dc4beb4c01fde6c,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d32346041377b24b378edb3371fa,73623589998444,2026-10-28T22:59:47.717Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d3234c0119e4a9d4cb1f13f3bf1b,null,null,null,null,null,null
+01f1d32345ef11719dc4beb4c01fde6c,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d32346041377b24b378edb3371fa,73623589998444,2026-10-28T22:59:47.717Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d3234cc01cf49b8bcc0b5192a35e,null,null,null,null,null,null
+01f1d32345ef11719dc4beb4c01fde6c,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d32346041377b24b378edb3371fa,73623589998444,2026-10-28T22:59:47.717Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d3234a961bb08d516859e313c227,"WITH medication_sales AS (
+  SELECT
+    `nome_medicamento`,
+    SUM(`quantidade`) AS `total_quantidade`
+  FROM `eurofarma`.`gold`.`obt_sales`
+  WHERE upper(`empresa_detentora_registro`) LIKE '%EUROFARMA%'
+    AND `nome_medicamento` IS NOT NULL
+  GROUP BY `nome_medicamento`
+), ranked_sales AS (
+  SELECT
+    `nome_medicamento`,
+    `total_quantidade`,
+    RANK() OVER (ORDER BY `total_quantidade` DESC) AS `rnk`
+  FROM medication_sales
+)
+SELECT
+  `nome_medicamento`,
+  `total_quantidade`
+FROM ranked_sales
+WHERE `rnk` <= 5
+ORDER BY `total_quantidade` DESC, `nome_medicamento` ASC","Você quer ver os 5 medicamentos mais vendidos da fabricante Eurofarma, classificados pelo total de unidades vendidas.",01f1d323-4aa6-16cf-b838-71d082b8f2d4,5,null,null
+01f1d32345ef11719dc4beb4c01fde6c,What are the top 5 best-selling medications from the manufacturer Eurofarma?,01f1d32346041377b24b378edb3371fa,73623589998444,2026-10-28T22:59:47.717Z,COMPLETED,What are the top 5 best-selling medications from the manufacturer Eurofarma?,null,null,null,null,null,"Using **all available periods in the data** and filtering to manufacturer names that match **Eurofarma**, the top 5 best-selling medications by **sales quantity** are:
+- **ÉSIO** — **139** units
+- **hemitartarato de zolpidem** — **124** units
+- **TORANTE** — **90** units
+- **CETOPROFENO** — **85** units
+- **VEAC** — **84** units
+Across these 5 results, sales range from **84** to **139** units, with **ÉSIO** leading by **15** units over the second-place medication.",null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3319a0c112e8df5b34cfa66ca38,73623589998444,2026-10-29T00:42:21.651Z,COMPLETED,Qual o produto que mais vende?,01f1d3319ee712c7b55d908edef35aa9,null,null,null,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3319a0c112e8df5b34cfa66ca38,73623589998444,2026-10-29T00:42:21.651Z,COMPLETED,Qual o produto que mais vende?,01f1d3319de91c7d9876f3620ed63a96,"WITH `vendas_produto` AS (
+  SELECT
+    `nome_medicamento`,
+    SUM(`quantidade`) AS `total_quantidade`
+  FROM `eurofarma`.`gold`.`obt_sales`
+  WHERE `nome_medicamento` IS NOT NULL
+  GROUP BY `nome_medicamento`
+),
+`ranking_produto` AS (
+  SELECT
+    `nome_medicamento`,
+    `total_quantidade`,
+    RANK() OVER (ORDER BY `total_quantidade` DESC) AS `rank_produto`
+  FROM `vendas_produto`
+)
+SELECT
+  `nome_medicamento`,
+  `total_quantidade`
+FROM `ranking_produto`
+WHERE `rank_produto` <= 1
+ORDER BY `total_quantidade` DESC, `nome_medicamento` ASC",Você quer saber qual é o medicamento que teve a maior quantidade total vendida.,01f1d331-9df7-1376-93e5-7e7cacddbebe,1,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3319a0c112e8df5b34cfa66ca38,73623589998444,2026-10-29T00:42:21.651Z,COMPLETED,Qual o produto que mais vende?,null,null,null,null,null,"Considerando **todo o período disponível** e sem outros filtros além de `nome_medicamento` preenchido, o produto que mais vende em quantidade é **hemitartarato de zolpidem**, com **702 unidades** vendidas. Como o resultado mostra **1 linha**, **hemitartarato de zolpidem** aparece como o líder geral de vendas por quantidade nesse conjunto de dados.",null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d331c7fc1ef0be6d6567e7ee48da,1646507280240387,2026-10-29T00:43:38.785Z,COMPLETED,Quais são os TOP 5 medicamentos genéricos que mais vendem do fabricante Eurofarma?,toolu_bdrk_01ens7s1ttactsd2had3rr95,"SELECT nome_medicamento, SUM(quantidade) AS total_quantidade
+FROM eurofarma.gold.obt_sales
+WHERE upper(empresa_detentora_registro) LIKE '%EUROFARMA%'
+AND upper(categoria_regulatoria) = 'GENÉRICO'
+GROUP BY nome_medicamento
+ORDER BY total_quantidade DESC
+LIMIT 5",null,01f1d331-cb57-1055-868d-8329de8e352b,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d331c7fc1ef0be6d6567e7ee48da,1646507280240387,2026-10-29T00:43:38.785Z,COMPLETED,Quais são os TOP 5 medicamentos genéricos que mais vendem do fabricante Eurofarma?,pub_toolu_bdrk_012Tkx5qYmXFX5jvus7hB3Qa_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d331fe3b1cf78190585d8ac56cea,1646507280240387,2026-10-29T00:45:09.785Z,COMPLETED,Quais as regiões (UF) que mais vendem os medicamentos genéricos da Eurofarma?,toolu_bdrk_01gxf1kha8xdyeifjvztyst5,"SELECT uf, SUM(quantidade) AS total_quantidade, SUM(valor_total) AS valor_vendas
+FROM eurofarma.gold.obt_sales
+WHERE upper(empresa_detentora_registro) LIKE '%EUROFARMA%'
+AND upper(categoria_regulatoria) = 'GENÉRICO'
+AND uf IS NOT NULL
+GROUP BY uf
+ORDER BY total_quantidade DESC",null,01f1d332-0178-1891-86bd-f6b89b2bbf8b,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d331fe3b1cf78190585d8ac56cea,1646507280240387,2026-10-29T00:45:09.785Z,COMPLETED,Quais as regiões (UF) que mais vendem os medicamentos genéricos da Eurofarma?,pub_toolu_bdrk_01Ff18z3qyhY7pwFLrVLW3ev_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33220891821a34955d51334d47c,1646507280240387,2026-10-29T00:46:07.337Z,COMPLETED,Estados que mais vendem CETOPROFENO da Eurofarma?,pub_toolu_bdrk_01Sj7UmD1EnKXJQXXhykgV5F_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33220891821a34955d51334d47c,1646507280240387,2026-10-29T00:46:07.337Z,COMPLETED,Estados que mais vendem CETOPROFENO da Eurofarma?,toolu_bdrk_01yaxfyj6kwjwaaeqdfj22cj,"SELECT uf, SUM(quantidade) AS total_quantidade, SUM(valor_total) AS valor_vendas
+FROM eurofarma.gold.obt_sales
+WHERE upper(empresa_detentora_registro) LIKE '%EUROFARMA%'
+AND upper(nome_medicamento) = 'CETOPROFENO'
+AND uf IS NOT NULL
+GROUP BY uf
+ORDER BY total_quantidade DESC",null,01f1d332-242a-1ff2-84a5-b41817d38ea8,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33241bb114e8e922979dba59fa7,1646507280240387,2026-10-29T00:47:03.049Z,COMPLETED,compare a venda por região (UF) do medicamento CETOPROFENO dos diversos fabicantes,pub_toolu_bdrk_01LVMyGAabys1K5sbrgqgoFF_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33241bb114e8e922979dba59fa7,1646507280240387,2026-10-29T00:47:03.049Z,COMPLETED,compare a venda por região (UF) do medicamento CETOPROFENO dos diversos fabicantes,pub_toolu_bdrk_012ng8qfyEu2oQXrNpoU9UGk_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33241bb114e8e922979dba59fa7,1646507280240387,2026-10-29T00:47:03.049Z,COMPLETED,compare a venda por região (UF) do medicamento CETOPROFENO dos diversos fabicantes,toolu_bdrk_01kpbq5jcqpuypbsqrqyagsz,"SELECT empresa_detentora_registro AS fabricante, SUM(quantidade) AS total_quantidade, SUM(valor_total) AS valor_vendas, COUNT(DISTINCT uf) AS n_estados
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO'
+GROUP BY empresa_detentora_registro
+ORDER BY total_quantidade DESC",null,01f1d332-49eb-12a1-b626-1cbc933d5bad,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d33241bb114e8e922979dba59fa7,1646507280240387,2026-10-29T00:47:03.049Z,COMPLETED,compare a venda por região (UF) do medicamento CETOPROFENO dos diversos fabicantes,toolu_bdrk_01dpibayf77mdtsnfavfbqcm,"SELECT uf, empresa_detentora_registro AS fabricante, SUM(quantidade) AS total_quantidade, SUM(valor_total) AS valor_vendas
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO'
+AND uf IS NOT NULL
+GROUP BY uf, empresa_detentora_registro
+ORDER BY uf, total_quantidade DESC",null,01f1d332-4588-139f-ad89-a21105082409,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,toolu_bdrk_018aoh8yf3paeksiy1crvegu,"SELECT empresa_detentora_registro AS fabricante,
+SUM(quantidade) AS total_quantidade,
+SUM(valor_total) AS valor_vendas,
+ROUND(100.0*SUM(quantidade)/SUM(SUM(quantidade)) OVER(), 2) AS pct_quantidade,
+ROUND(100.0*SUM(valor_total)/SUM(SUM(valor_total)) OVER(), 2) AS pct_valor
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO' AND uf = 'SP'
+GROUP BY empresa_detentora_registro
+ORDER BY total_quantidade DESC",null,01f1d332-8658-120d-a9d9-69df1b50025c,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,pub_toolu_bdrk_01XSJqTC7vyXqNv974qJd9Uu_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,pub_toolu_bdrk_01Ta5PdSXma4NKFDZUfpXJbi_output,null,null,null,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,toolu_bdrk_01mwjcy7dxuxxrwjlodufnv7,"SELECT nome_fantasia, cidade,
+SUM(CASE WHEN upper(empresa_detentora_registro) LIKE '%EUROFARMA%' THEN quantidade ELSE 0 END) AS qtd_eurofarma,
+SUM(CASE WHEN upper(empresa_detentora_registro) NOT LIKE '%EUROFARMA%' THEN quantidade ELSE 0 END) AS qtd_concorrentes
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO' AND uf = 'SP' AND nome_fantasia IS NOT NULL
+GROUP BY nome_fantasia, cidade
+HAVING SUM(CASE WHEN upper(empresa_detentora_registro) NOT LIKE '%EUROFARMA%' THEN quantidade ELSE 0 END) > 0
+ORDER BY qtd_concorrentes DESC
+LIMIT 20",null,01f1d332-8656-1f03-861e-2481bb40329d,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,toolu_bdrk_01bwpurrgafsu2jlbqwvxag6,"SELECT canal_venda,
+SUM(CASE WHEN upper(empresa_detentora_registro) LIKE '%EUROFARMA%' THEN quantidade ELSE 0 END) AS qtd_eurofarma,
+SUM(CASE WHEN upper(empresa_detentora_registro) NOT LIKE '%EUROFARMA%' THEN quantidade ELSE 0 END) AS qtd_outros,
+SUM(quantidade) AS qtd_total
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO' AND uf = 'SP'
+GROUP BY canal_venda
+ORDER BY qtd_total DESC",null,01f1d332-8656-106d-a1f0-26f0077b788d,null,null,null
+01f1d331c76713d0802e88e418dbe26c,Quais são os TOP 5 medicamentos genéricos que mais vendem do ...,01f1d3327cd81e8794e1544b37bc75a9,1646507280240387,2026-10-29T00:48:42.255Z,COMPLETED,Como faço para aumentar meu Market Share do produto CETOPROFENO na região de SP ?,toolu_bdrk_01qdwm6zyvknbsucibvhw2ek,"SELECT empresa_detentora_registro AS fabricante,
+AVG(valor_unitario) AS preco_medio,
+AVG(desconto_pct) AS desconto_medio,
+COUNT(DISTINCT venda_id) AS n_vendas
+FROM eurofarma.gold.obt_sales
+WHERE upper(nome_medicamento) = 'CETOPROFENO' AND uf = 'SP'
+GROUP BY empresa_detentora_registro
+ORDER BY preco_medio",null,01f1d332-8656-16ca-b947-e3496a19a7de,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d33365591e8990c978048adb3587,73623589998444,2026-10-29T00:55:12.235Z,COMPLETED,Qual a projeção de vendas do medicamento CETOPROFENO da Eurofarma?,null,null,null,null,null,"Para o medicamento **CETOPROFENO** da **Eurofarma** em **2026**, considerando vendas até **2026-09-30**, a projeção de vendas para o ano cheio é de **BRL 23.330,47** e a projeção de quantidade é de **113,64 unidades**. No acumulado de **273 dias** de 2026, **CETOPROFENO** da **Eurofarma** somou **BRL 17.449,91** em vendas e **85 unidades**, o que indica um ritmo médio compatível com essa projeção anual.",null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d33365591e8990c978048adb3587,73623589998444,2026-10-29T00:55:12.235Z,COMPLETED,Qual a projeção de vendas do medicamento CETOPROFENO da Eurofarma?,01f1d3336c7214568c958a607513daad,null,null,null,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d33365591e8990c978048adb3587,73623589998444,2026-10-29T00:55:12.235Z,COMPLETED,Qual a projeção de vendas do medicamento CETOPROFENO da Eurofarma?,01f1d3336a991536b6d8d47e0ad962e2,"WITH `base` AS (
+  SELECT
+    `data_venda`,
+    `valor_total`,
+    `quantidade`
+  FROM `eurofarma`.`gold`.`obt_sales`
+  WHERE `nome_medicamento` = 'CETOPROFENO'
+    AND UPPER(`empresa_detentora_registro`) LIKE '%EUROFARMA%'
+    AND YEAR(`data_venda`) = 2026
+),
+`agg` AS (
+  SELECT
+    MAX(`data_venda`) AS `ultima_data_venda`,
+    SUM(`valor_total`) AS `valor_vendas_ytd`,
+    SUM(`quantidade`) AS `quantidade_ytd`
+  FROM `base`
+)
+SELECT
+  `ultima_data_venda`,
+  `valor_vendas_ytd`,
+  `quantidade_ytd`,
+  DATEDIFF(`ultima_data_venda`, DATE_TRUNC('YEAR', `ultima_data_venda`)) + 1 AS `dias_decorridos`,
+  (try_divide(`valor_vendas_ytd`,(DATEDIFF(`ultima_data_venda`, DATE_TRUNC('YEAR', `ultima_data_venda`)) + 1))) * 365 AS `projecao_valor_ano_cheio`,
+  (try_divide(`quantidade_ytd`,(DATEDIFF(`ultima_data_venda`, DATE_TRUNC('YEAR', `ultima_data_venda`)) + 1))) * 365 AS `projecao_quantidade_ano_cheio`
+FROM `agg`
+WHERE `ultima_data_venda` IS NOT NULL",Você quer ver a projeção de vendas para o medicamento CETOPROFENO da Eurofarma no ano de 2026.,01f1d333-6aaa-11d6-86e3-826f99e732ec,1,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3339b8a1b36b5fc8b2ccde75164,73623589998444,2026-10-29T00:56:43.152Z,COMPLETED,Como estão as vendas por região do CETOPROFENO da Eurofarma,01f1d333a8821c2680e3f33441613f46,null,null,null,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3339b8a1b36b5fc8b2ccde75164,73623589998444,2026-10-29T00:56:43.152Z,COMPLETED,Como estão as vendas por região do CETOPROFENO da Eurofarma,01f1d333aaae1da094e7e7c9aa8fa8e2,null,null,null,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3339b8a1b36b5fc8b2ccde75164,73623589998444,2026-10-29T00:56:43.152Z,COMPLETED,Como estão as vendas por região do CETOPROFENO da Eurofarma,null,null,null,null,null,"Considerando **CETOPROFENO** da **Eurofarma** e apenas vendas com **UF preenchida**, há **8 UFs** no resultado; em valor vendido, **MA** lidera com **R$ 4.370,58**, seguida por **BA** com **R$ 1.352,40** e **MT** com **R$ 978,90**. Exemplos incluem:
+- **MA**: **R$ 4.370,58**, **20** unidades, **1** venda
+- **BA**: **R$ 1.352,40**, **15** unidades, **1** venda
+- **MT**: **R$ 978,90**, **5** unidades, **2** vendas
+- **PE**: **R$ 322,26**, **2** unidades, **1** venda
+- **SP**: **R$ 299,00**, **3** unidades, **2** vendas
+
+Entre as UFs retornadas, as vendas estão bastante concentradas em **MA** e **BA**, que aparecem bem acima das demais em valor.",null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d3339b8a1b36b5fc8b2ccde75164,73623589998444,2026-10-29T00:56:43.152Z,COMPLETED,Como estão as vendas por região do CETOPROFENO da Eurofarma,01f1d333a7731a79955bbd5164ecb030,"SELECT
+  `uf`,
+  SUM(`valor_total`) AS `valor_vendas`,
+  SUM(`quantidade`) AS `quantidade_vendida`,
+  COUNT(DISTINCT `venda_id`) AS `total_vendas`
+FROM `eurofarma`.`gold`.`obt_sales`
+WHERE `nome_medicamento` = 'CETOPROFENO'
+  AND UPPER(`empresa_detentora_registro`) LIKE '%EUROFARMA%'
+  AND `uf` IS NOT NULL
+GROUP BY `uf`
+ORDER BY `valor_vendas` DESC, `uf` ASC",Você quer ver como estão as vendas do medicamento CETOPROFENO da Eurofarma distribuídas por estado (UF) no Brasil.,01f1d333-a77c-1c73-9609-f7999054e2df,8,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d33474a81fe0910c0ad0b40adc5c,73623589998444,2026-10-29T01:02:47.417Z,COMPLETED,which SKUs are at stockout risk this week,01f1d334790e1a22bb5753f4ed43d5f6,null,null,null,null,null,null
+01f1d33199f519e3a14f3911db6ba5e9,Qual o produto que mais vende?,01f1d33474a81fe0910c0ad0b40adc5c,73623589998444,2026-10-29T01:02:47.417Z,COMPLETED,which SKUs are at stockout risk this week,01f1d33478021bdfa269cb6ecbd1e65f,null,null,null,null,"Isso não é possível responder com esta base, porque ela só tem vendas e cadastro de produtos/farmácias; não há estoque, cobertura, reposição ou saldo disponível para medir risco de ruptura. Se quiser, posso buscar apenas sinais de alta demanda nesta semana com base em vendas.",null
