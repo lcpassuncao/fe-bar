@@ -127,7 +127,7 @@ For the predictive model lifecycle, Databricks provides an MLOps framework calle
 
 * At least a 50% gain in productivity;
 * Reduce Infraestructure cost (by 25%);
-* Increase the market share of generic medications by 1%;
+* Increase the market share of generic medications by 2%;
 * Reduce medication stockout by 20%;
 
 </br></br>
