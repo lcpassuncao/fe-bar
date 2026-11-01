@@ -97,9 +97,19 @@ The company EUROFARMA:
 
 </br></br>
 
-## How does your Databricks solution address this challenge? 
+## How does your Databricks solution address Data&AI area challenge? 
 
-Databricks is a comprehensive Data and AI platform that provides end-to-end solutions—covering everything from data ingestion and governance to machine learning models, GenAI assistants, and data applications—with the goal of simplifying and accelerating operations.
+To meet the Head of Data’s modernization goals, the Databricks platform addresses the client’s needs from end to end.
+Regarding governance, Databricks offers native, centralized data governance through Unity Catalog. It provides a clear, simple way to grant role-based access and establish permissions for catalogs, schemas, and tables. The value lies in making governance more observable, costs more attributable, and access more consistent and granular—reducing the effort required to manage disparate rules as the environment scales. Combined with a proposed migration from the existing Data Lake to Delta Lake, this will result in a much more integrated governance framework than what is currently available in GCP BigQuery.
+To minimize initial disruption during the migration, it is recommended to use Lakeflow Connect and direct federation with BigQuery; this allows for immediate short-term gains while the Data Engineering team refactors ingestion pipelines.
+Beyond modernization, this migration from BigQuery is expected to reduce infrastructure costs by approximately 30%, in line with market benchmarks.
+In terms of productivity, Databricks enhances team output through integrated coding assistants (such as Genie Code), a collaborative environment, and simplified administration via DataOps frameworks. This will enable the data team to meet goals for accelerating the deployment of new projects, shortening timelines to a matter of weeks.
+For the predictive model lifecycle, Databricks provides an MLOps framework called MLflow, which addresses both productivity and model robustness. The Feature Store functionality allows data scientists to boost productivity by reusing model parameters, while AutoML reduces the time required to create new models from months to weeks. Furthermore, Databricks includes integrated Model Serving, as well as Data Quality and Data Monitoring features, which help identify when models begin to lose accuracy.
+
+</br></br>
+
+## How does your Databricks solution address Business challenge? 
+
 
 | Solution | Objective |
 | -- | -- |
@@ -115,8 +125,10 @@ Databricks is a comprehensive Data and AI platform that provides end-to-end solu
 
 ## Expected Business Outcomes
 
-* Reduce medication stockout by 20%;
+* At least a 50% gain in productivity;
+* Reduce Infraestructure cost (by 25%);
 * Increase the market share of generic medications by 1%;
+* Reduce medication stockout by 20%;
 
 </br></br>
 
