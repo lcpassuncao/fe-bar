@@ -31,26 +31,38 @@ Databricks is a global enterprise software company that provides a cloud-based D
 
 </br></br>
 
-## Core Technology & Offerings
 
-* Lakehouse Platform: Combines the low-cost storage and flexibility of data lakes with the structure and governance of data warehouses.
-* Key Open-Source & Enterprise Projects: Apache Spark, Delta Lake, MLflow, Unity Catalog, and Lakeflow.
-* AI & Agent Capabilities: Features tools like Agent Bricks (for building AI agents), Genie Code, Genie Agentsand Unity Gateway (an AI Governed).
-* Cloud Integration: Runs natively across major cloud providers including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
+
+## Commercial Challenges: Sales and demand-forecasting 
+
+The Commercial Director at Eurofarma faces the challenge, linked to his annual targets, of increasing the market share for generic drug sales by 2%, with a particular focus on the Northeast region. 
+He needs visibility into which products are best suited for each specific region. 
+Another of his goals is to reduce the stock-out rate for generic medications.
+Currently, he lacks detailed visibility into sales by region.
+He is dependent on data teams whenever he requires a more specialized report.
+He would like greater independence in manipulating data.
+Some reports contain inconsistencies, take too long to become available, and sales figures do not always align across regions.
+He needs insight into which product types are most appropriate for each region and aims to improve demand forecasting.
+Furthermore, he wants to democratize data access for Regional Managers, who are non-technical users, so they can monitor sales and take action to help meet sales targets. 
+Ideally, each Regional Manager should have exclusive access to their own specific data.
+Sales reports are sometimes delayed and only reflect the previous day’s data (D-1); 
+He would prefer to have access to sales results on an hourly basis.
 
 </br></br>
 
-## Sector Challenges: Sales and demand-forecasting 
 
-Brazil is the fifth-largest country in the world by land area. This adds a layer of complexity to logistics route planning, as it requires balancing speed, cost, and reliability.
+## Data & AI area Challenges:  Platform modernization
 
-Furthermore, regions far from major urban centers often lack specialized storage and transport services equipped with the necessary infrastructure. 
-
-Demand forecasting errors: A failure to cross-reference actual consumption, sales history, and clinical protocols leads the procurement department to miscalculate the quantities of items to be acquired.
-
-ABC and XYZ product classification: Apply the ABC analysis (based on an item’s financial value) in conjunction with the XYZ analysis (demand predictability). High-value, frequently used medications (category A-X) require daily monitoring and stricter safety margins.
-
-Supplier diversification: Do not centralize procurement with a single manufacturer or distributor. Maintain approved alternative partners to prevent complete operational stoppages in the event of unforeseen issues within the supply chain.
+The Head of Data & AI, who reports to the IT Director, faces the challenge of modernizing the current data platform—hosted on GCP, with a Data Lake in BigQuery. 
+Meanwhile, most business units rely on Excel as their primary tool for decision-making. The data team is currently centralized and faces a significant backlog of unaddressed data projects; 
+There is an urgent need to increase team productivity and reduce the time required to deploy new data pipelines. To improve operational efficiency, the organization is exploring the decentralization of certain activities, potentially adopting a "Data Mesh" framework to grant greater autonomy to business units. 
+Furthermore, the current BigQuery setup presents gaps in data governance, challenges in access management, and a lack of visibility into costs by individual business area.
+The objective is to migrate the platform to boost the data team's productivity—for instance, by leveraging coding assistants ("Vibe Coding"). 
+There are currently 11 pending data projects that must be delivered by the end of the year. 
+Regarding the governance of predictive models, the lifecycle process requires greater robustness; 
+The existing demand forecasting model lacks accuracy when broken down by region, and the training of new models is overly time-consuming, lacking a formal lifecycle management process. 
+With an average project duration of 4 months, the team needs to achieve at least a 50% gain in productivity to clear the existing backlog. 
+Additionally, there is a goal to reduce cloud infrastructure costs.
 
 </br></br>
 
@@ -106,7 +118,6 @@ Databricks is a comprehensive Data and AI platform that provides end-to-end solu
 * Reduce medication stockout by 20%;
 * Increase the market share of generic medications by 1%;
 
-  
 </br></br>
 
 ## Technological improvements
