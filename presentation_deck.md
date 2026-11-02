@@ -35,7 +35,7 @@ Databricks is a global enterprise software company that provides a cloud-based D
 
 ## Commercial Challenges: Sales and demand-forecasting 
 
-The Commercial Director at Eurofarma faces the challenge, linked to his annual targets, of increasing the market share for generic drug sales by 2%, with a particular focus on the Northeast region. 
+The Commercial Director at Eurofarma faces the challenge, linked to his annual targets, of increasing the market share for generic drug sales by 1%, with a particular focus on the Northeast region; representing an increase of USD 35 million in annual revenue.
 He needs visibility into which products are best suited for each specific region. 
 Another of his goals is to reduce the stock-out rate for generic medications.
 Currently, he lacks detailed visibility into sales by region.
@@ -116,7 +116,7 @@ The proposal involves creating a Genie Agent that enables Sales Managers and rep
 Access to information is segmented by region; each Regional Manager can only analyze data for their own specific territory; a process managed automatically by Databricks through its governance solution, Unity Catalog.
 In addition to the Genie conversational agent, Databricks offers a sales analysis solution via AI/BI Dashboards, allowing managers to track sales trends and utilize map-based visualizations for georeferenced analysis.
 For users involved in sales planning who still rely on Excel for calculations, Databricks provides an Excel Add-in. This allows them to connect to the Data Lake directly from their spreadsheets and access the Genie conversational agent without leaving the Excel environment, significantly streamlining workflows and ensuring analytical consistency through a "single source of truth."
-To address the objective of reducing stock-outs for generic medications, we propose a continuous improvement process for demand forecasting models, which are currently reviewed only on a semi-annual basis. With MLflow and AutoML capabilities, the creation, monitoring, and training of models will significantly accelerate the MLOps cycle. This, in turn, will improve prediction accuracy, with an expected reduction in the stock-out rate by at least 10 percentage points.
+To address the objective of reducing stock-outs for generic medications, we propose a continuous improvement process for demand forecasting models, which are currently reviewed only on a semi-annual basis. With MLflow and AutoML capabilities, the creation, monitoring, and training of models will significantly accelerate the MLOps cycle. This, in turn, will improve prediction accuracy, with an expected reduction in the stock-out rate by at least 2 percentage points.
 Model precision and decision-making agility will also be supported by higher-quality data—ensured by Databricks governance features—and by increasing the frequency of sales data loads from daily to hourly. This will be achieved through enhancements to data engineering processes using Databricks Lakeflow and the Spark Declarative Pipelines (SDP) framework—an open, native Apache Spark framework designed to simplify batch and streaming data engineering via a declarative approach. This will reduce reporting inconsistencies and substantially shorten the time required to make new data and analyses available.
 
 </br></br>
@@ -124,14 +124,15 @@ Model precision and decision-making agility will also be supported by higher-qua
 ## Expected Business Outcomes
 
 * At least a 50% gain in productivity (Data and AI team);
-* Reduce Infraestructure cost (by 25%);
-* Increase the market share of generic medications by 2%;
-* Reduce medication stockout by 10%;
+* Reduce Infraestructure cost (by 25%, saving USD 200K per year);
+* Increase the market share of generic medications by 1%;
+* Reduce medication stockout by 2%;
 
 </br></br>
 
 ## Next Steps
 
-* 
+* Present a formal commercial proposal for the Databricks platform.
+* Engage an accredited Databricks partner to implement the migration project.
 
 </br></br>
