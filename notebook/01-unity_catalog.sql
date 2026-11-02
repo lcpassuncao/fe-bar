@@ -81,3 +81,57 @@ SELECT uf, COUNT(*) AS linhas
 FROM eurofarma.gold.obt_sales
 GROUP BY uf
 ORDER BY uf;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## ABAC on `eurofarma.gold.obt_sales.email`
+-- MAGIC
+-- MAGIC Attribute-based access control driven by a governed tag:
+-- MAGIC
+-- MAGIC 1. Governed tag `pii` (allowed value `email`)
+-- MAGIC 2. Tag `pii = email` on the `email` column
+-- MAGIC 3. Masking function `eurofarma.gold.mask_email`
+-- MAGIC 4. ABAC column-mask policy: applies to all account users, **except** `luis.assuncao@databricks.com`, who sees the clear value
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC # Governed tags are account-level objects: create the `pii` tag policy (needs permission to create governed tags)
+-- MAGIC from databricks.sdk import WorkspaceClient
+-- MAGIC from databricks.sdk.service.tags import TagPolicy, Value
+-- MAGIC
+-- MAGIC w = WorkspaceClient()
+-- MAGIC try:
+-- MAGIC     w.tag_policies.create_tag_policy(
+-- MAGIC         tag_policy=TagPolicy(tag_key="pii", description="Personally identifiable information", values=[Value(name="email")])
+-- MAGIC     )
+-- MAGIC except Exception as e:
+-- MAGIC     print(f"pii tag policy not created (it may already exist): {e}")
+
+-- COMMAND ----------
+
+ALTER TABLE eurofarma.gold.obt_sales ALTER COLUMN email SET TAGS ('pii' = 'email');
+
+-- COMMAND ----------
+
+CREATE OR REPLACE FUNCTION eurofarma.gold.mask_email(email STRING)
+RETURNS STRING
+COMMENT 'ABAC mask: hides the email value'
+RETURN CASE WHEN email IS NULL THEN NULL ELSE '*****' END;
+
+-- COMMAND ----------
+
+CREATE OR REPLACE POLICY mask_pii_email
+ON TABLE eurofarma.gold.obt_sales
+COMMENT 'Mask columns tagged pii=email for everyone except luis.assuncao@databricks.com'
+COLUMN MASK eurofarma.gold.mask_email
+TO `account users`
+EXCEPT `luis.assuncao@databricks.com`
+FOR TABLES
+MATCH COLUMNS hasTagValue('pii', 'email') AS email_col
+ON COLUMN email_col;
+
+-- COMMAND ----------
+
+SELECT cnpj14, email FROM eurofarma.gold.obt_sales LIMIT 10;
