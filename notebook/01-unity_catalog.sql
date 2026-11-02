@@ -96,21 +96,6 @@ ORDER BY uf;
 
 -- COMMAND ----------
 
--- MAGIC %python
--- MAGIC # Governed tags are account-level objects: create the `pii` tag policy (needs permission to create governed tags)
--- MAGIC from databricks.sdk import WorkspaceClient
--- MAGIC from databricks.sdk.service.tags import TagPolicy, Value
--- MAGIC
--- MAGIC w = WorkspaceClient()
--- MAGIC try:
--- MAGIC     w.tag_policies.create_tag_policy(
--- MAGIC         tag_policy=TagPolicy(tag_key="pii", description="Personally identifiable information", values=[Value(name="email")])
--- MAGIC     )
--- MAGIC except Exception as e:
--- MAGIC     print(f"pii tag policy not created (it may already exist): {e}")
-
--- COMMAND ----------
-
 ALTER TABLE eurofarma.gold.obt_sales ALTER COLUMN email SET TAGS ('pii' = 'email');
 
 -- COMMAND ----------
