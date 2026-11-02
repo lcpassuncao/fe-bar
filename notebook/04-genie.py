@@ -444,6 +444,7 @@ except NotFound:
 
 # COMMAND ----------
 
+# DBTITLE 1,Create or update Genie space
 w = WorkspaceClient()
 warehouse_id = dbutils.widgets.get("warehouse_id")
 parent_path = f"/Workspace/Users/{w.current_user.me().user_name}"
@@ -457,11 +458,15 @@ while True:
     if existing or not page_token:
         break
 
+space = json.loads(SERIALIZED_SPACE)
+space["config"]["sample_questions"].sort(key=lambda x: x["id"])
+space["instructions"]["example_question_sqls"].sort(key=lambda x: x["id"])
+
 payload = {
     "title": TITLE,
     "description": DESCRIPTION,
     "warehouse_id": warehouse_id,
-    "serialized_space": json.dumps(json.loads(SERIALIZED_SPACE), ensure_ascii=False),
+    "serialized_space": json.dumps(space, ensure_ascii=False),
 }
 if existing:
     space_id = existing["space_id"]
