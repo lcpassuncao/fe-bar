@@ -110,35 +110,28 @@ For the predictive model lifecycle, Databricks provides an MLOps framework calle
 
 ## How does your Databricks solution address Business challenge? 
 
-
-| Solution | Objective |
-| -- | -- |
-| Unity Catalog | Unified and native Data Governance |
-| Lakeflow | Data ingestion in a simple way |
-| Genie Agent | Democratize information by making it accessible via natural language |
-| Machine Learning | make it intelligent with AI Model to clustering sales and forecasting |
-| Lakebase | Operational serving of AI Models |
-| Databricks app | Simple way to expose and interact with data |
-| AI/BI Dashboard | Commercial Analytics Dashboard with Sales KPIs |
+Databricks platform provides simple tools for querying and manipulating data—even for non-technical users, thereby fulfilling the goal of data democratization and reducing reliance on IT teams.
+This ease of access is supported by a wide range of platform features, including conversational agents like "Genie Agents", which allow users to ask questions in natural language that are then automatically translated into queries against Data Lake tables.
+The proposal involves creating a Genie Agent that enables Sales Managers and representatives in each territory to monitor daily sales, investigate discrepancies between actual and projected figures, access demand forecasts, identify top-selling products by region, and gain actionable sales insights to help meet targets. This granular level of oversight will improve management, support the achievement of sales goals, and, consequently, help increase market share.
+Access to information is segmented by region; each Regional Manager can only analyze data for their own specific territory; a process managed automatically by Databricks through its governance solution, Unity Catalog.
+In addition to the Genie conversational agent, Databricks offers a sales analysis solution via AI/BI Dashboards, allowing managers to track sales trends and utilize map-based visualizations for georeferenced analysis.
+For users involved in sales planning who still rely on Excel for calculations, Databricks provides an Excel Add-in. This allows them to connect to the Data Lake directly from their spreadsheets and access the Genie conversational agent without leaving the Excel environment, significantly streamlining workflows and ensuring analytical consistency through a "single source of truth."
+To address the objective of reducing stock-outs for generic medications, we propose a continuous improvement process for demand forecasting models, which are currently reviewed only on a semi-annual basis. With MLflow and AutoML capabilities, the creation, monitoring, and training of models will significantly accelerate the MLOps cycle. This, in turn, will improve prediction accuracy, with an expected reduction in the stock-out rate by at least 10 percentage points.
+Model precision and decision-making agility will also be supported by higher-quality data—ensured by Databricks governance features—and by increasing the frequency of sales data loads from daily to hourly. This will be achieved through enhancements to data engineering processes using Databricks Lakeflow and the Spark Declarative Pipelines (SDP) framework—an open, native Apache Spark framework designed to simplify batch and streaming data engineering via a declarative approach. This will reduce reporting inconsistencies and substantially shorten the time required to make new data and analyses available.
 
 </br></br>
 
 ## Expected Business Outcomes
 
-* At least a 50% gain in productivity;
+* At least a 50% gain in productivity (Data and AI team);
 * Reduce Infraestructure cost (by 25%);
 * Increase the market share of generic medications by 2%;
-* Reduce medication stockout by 20%;
+* Reduce medication stockout by 10%;
 
 </br></br>
 
-## Technological improvements
+## Next Steps
 
-* Unification of data, analytics, and AI on a single platform.
-* Greater agility: accelerates the creation of pipelines, dashboards, predictive models, and AI applications.
-* Centralized governance: provides access control, auditing, lineage, and security policies.
-* Adoption of generative AI: facilitates the development of models, agents, and applications based on corporate data.
-* Real-time processing: supports both batch and streaming workloads within the same architecture.
-* Increased productivity: collaborative environments enable the reuse of code, data, models, and processes.
+* 
 
 </br></br>
