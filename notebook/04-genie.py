@@ -20,7 +20,9 @@
 # MAGIC # 04 - Genie space
 # MAGIC
 # MAGIC Creates (or updates) the Genie space **genie_eurofarma** ("Commercial conversational agent")
-# MAGIC on top of `eurofarma.gold.obt_sales`, with sample questions such as
+# MAGIC on top of `eurofarma.gold.obt_sales` and of the Lakebase table `eurofarma_forecast`
+# MAGIC (sales projection, registered in Unity Catalog as `eurofarma_lakebase.public.eurofarma_forecast`),
+# MAGIC with sample questions such as
 # MAGIC *"What are the top 5 best-selling medications from the manufacturer Eurofarma?"*.
 # MAGIC
 # MAGIC The space is created with the Genie REST API (`/api/2.0/genie/spaces`).
@@ -37,12 +39,24 @@ from databricks.sdk import WorkspaceClient
 TITLE = "genie_eurofarma"
 DESCRIPTION = "Commercial conversational agent"
 
+# Lakebase (Postgres) database created in 05-lakebase, registered as a Unity Catalog catalog
+LAKEBASE_PROJECT = "eurofarma"
+LAKEBASE_BRANCH = f"projects/{LAKEBASE_PROJECT}/branches/production"
+LAKEBASE_DATABASE = "eurofarma"
+LAKEBASE_CATALOG = "eurofarma_lakebase"
+
 # serialized_space: table, column descriptions, instructions, sample questions and example SQL
 SERIALIZED_SPACE = r"""
 {
   "version": 2,
   "config": {
     "sample_questions": [
+      {
+        "id": "9c2e7d41b8a64f0e8d3a1b5c7e9f2a4b",
+        "question": [
+          "What is the expected sales quantity per day for the next 30 days?"
+        ]
+      },
       {
         "id": "0afbc8aad528406ab26c4e20816a0e6e",
         "question": [
@@ -270,6 +284,61 @@ SERIALIZED_SPACE = r"""
             ]
           }
         ]
+      },
+      {
+        "identifier": "eurofarma_lakebase.public.eurofarma_forecast",
+        "description": [
+          "Sales projection (forecast) for the coming days, stored in Lakebase. One row per SKU per projected date."
+        ],
+        "column_configs": [
+          {
+            "column_name": "expected_quantity",
+            "enable_format_assistance": true,
+            "description": [
+              "Expected sales quantity (units) of the SKU on the projected date."
+            ],
+            "synonyms": [
+              "forecast",
+              "projection",
+              "expected sales"
+            ]
+          },
+          {
+            "column_name": "medication_name",
+            "enable_format_assistance": true,
+            "description": [
+              "Medication name."
+            ],
+            "synonyms": [
+              "medication",
+              "drug",
+              "product"
+            ],
+            "enable_entity_matching": true
+          },
+          {
+            "column_name": "projected_date",
+            "enable_format_assistance": true,
+            "description": [
+              "Date the projection refers to."
+            ],
+            "synonyms": [
+              "forecast date",
+              "date"
+            ]
+          },
+          {
+            "column_name": "sku_code",
+            "enable_format_assistance": true,
+            "description": [
+              "SKU code; equals id_produto in eurofarma.gold.obt_sales."
+            ],
+            "synonyms": [
+              "sku",
+              "product id"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -278,7 +347,7 @@ SERIALIZED_SPACE = r"""
       {
         "id": "7d1b7aeaea3944f3b5c596393e0a75e3",
         "content": [
-          "This space answers commercial questions about drug sales in Brazil using one denormalized table, eurofarma.gold.obt_sales (one row per sale: sale + drug + drugstore). Currency is BRL. Sales value = SUM(valor_total); sales quantity = SUM(quantidade); average ticket = SUM(valor_total) / COUNT(DISTINCT venda_id). 'Best-selling' means highest SUM(quantidade) unless the user asks for value. The manufacturer is empresa_detentora_registro; Eurofarma is stored as 'EUROFARMA LABORATÓRIOS S.A.', so match it with upper(empresa_detentora_registro) LIKE '%EUROFARMA%'. Drug type is categoria_regulatoria. Location columns (uf, cidade, latitude, longitude) come from the drugstore registry and are NULL for about 25% of sales. Answer in the user's language and state the filters and period used."
+          "This space answers commercial questions about drug sales in Brazil using one denormalized table, eurofarma.gold.obt_sales (one row per sale: sale + drug + drugstore). Currency is BRL. Sales value = SUM(valor_total); sales quantity = SUM(quantidade); average ticket = SUM(valor_total) / COUNT(DISTINCT venda_id). 'Best-selling' means highest SUM(quantidade) unless the user asks for value. The manufacturer is empresa_detentora_registro; Eurofarma is stored as 'EUROFARMA LABORATÓRIOS S.A.', so match it with upper(empresa_detentora_registro) LIKE '%EUROFARMA%'. Drug type is categoria_regulatoria. Location columns (uf, cidade, latitude, longitude) come from the drugstore registry and are NULL for about 25% of sales. Forecast: the table eurofarma_lakebase.public.eurofarma_forecast (Lakebase) holds the projected sales quantity per SKU and day (sku_code, medication_name, projected_date, expected_quantity); sku_code joins to eurofarma.gold.obt_sales.id_produto. Use it for questions about forecast, projection or expected sales, and compare it with actuals (SUM(quantidade)) when asked. Answer in the user's language and state the filters and period used."
         ]
       }
     ],
@@ -327,11 +396,51 @@ SERIALIZED_SPACE = r"""
         "sql": [
           "SELECT uf, SUM(valor_total) AS valor_vendas FROM eurofarma.gold.obt_sales WHERE uf IS NOT NULL GROUP BY uf ORDER BY valor_vendas DESC"
         ]
+      },
+      {
+        "id": "b3f1c9a2d7e84a6f9c0d5e1a2b4c6d8e",
+        "question": [
+          "What is the expected sales quantity per day for the next 30 days?"
+        ],
+        "sql": [
+          "SELECT projected_date, SUM(expected_quantity) AS expected_quantity FROM eurofarma_lakebase.public.eurofarma_forecast WHERE projected_date >= current_date() AND projected_date < date_add(current_date(), 30) GROUP BY projected_date ORDER BY projected_date"
+        ]
       }
     ]
   }
 }
 """
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Register the Lakebase database in Unity Catalog
+# MAGIC
+# MAGIC Genie reads Unity Catalog tables, so the Lakebase database `eurofarma` (created in `05-lakebase`)
+# MAGIC is registered as the read-only catalog `eurofarma_lakebase`; the table is then
+# MAGIC `eurofarma_lakebase.public.eurofarma_forecast`. Requires `CREATE CATALOG` on the metastore, and
+# MAGIC a **serverless** SQL warehouse to query the registered catalog.
+
+# COMMAND ----------
+
+from databricks.sdk.errors import NotFound
+from databricks.sdk.service.postgres import Catalog, CatalogCatalogSpec
+
+_w = WorkspaceClient()
+try:
+    registered = _w.postgres.get_catalog(f"catalogs/{LAKEBASE_CATALOG}")
+    print("catalog already registered:", registered.name)
+except NotFound:
+    registered = _w.postgres.create_catalog(
+        catalog_id=LAKEBASE_CATALOG,
+        catalog=Catalog(spec=CatalogCatalogSpec(postgres_database=LAKEBASE_DATABASE, branch=LAKEBASE_BRANCH)),
+    ).wait()
+    print("catalog registered:", registered.name)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM eurofarma_lakebase.public.eurofarma_forecast LIMIT 10
 
 # COMMAND ----------
 
@@ -373,6 +482,7 @@ else:
 # MAGIC * What is the average ticket by sales channel?
 # MAGIC * Which are the top 10 manufacturers by sales value?
 # MAGIC * How did monthly sales value evolve in 2026?
+# MAGIC * What is the expected sales quantity per day for the next 30 days?
 
 # COMMAND ----------
 
